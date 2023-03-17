@@ -1,19 +1,173 @@
-<ui version="4.0" >
- <class>Dialog</class>
- <widget class="QDialog" name="Dialog" >
-  <property name="geometry" >
+<?xml version="1.0" encoding="UTF-8"?>
+<ui version="4.0">
+ <class>AddIngredient</class>
+ <widget class="QDialog" name="AddIngredient">
+  <property name="geometry">
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>400</width>
-    <height>300</height>
+    <width>411</width>
+    <height>222</height>
    </rect>
   </property>
-  <property name="windowTitle" >
-   <string>Dialog</string>
+  <property name="sizePolicy">
+   <sizepolicy hsizetype="Fixed" vsizetype="Fixed">
+    <horstretch>0</horstretch>
+    <verstretch>0</verstretch>
+   </sizepolicy>
   </property>
+  <property name="minimumSize">
+   <size>
+    <width>411</width>
+    <height>222</height>
+   </size>
+  </property>
+  <property name="maximumSize">
+   <size>
+    <width>411</width>
+    <height>222</height>
+   </size>
+  </property>
+  <property name="windowTitle">
+   <string>Add Ingredient</string>
+  </property>
+  <widget class="QWidget" name="widget" native="true">
+   <property name="geometry">
+    <rect>
+     <x>10</x>
+     <y>10</y>
+     <width>391</width>
+     <height>201</height>
+    </rect>
+   </property>
+   <widget class="QRadioButton" name="enterMeasurementGrams">
+    <property name="geometry">
+     <rect>
+      <x>130</x>
+      <y>90</y>
+      <width>69</width>
+      <height>21</height>
+     </rect>
+    </property>
+    <property name="text">
+     <string>Grams</string>
+    </property>
+    <property name="checked">
+     <bool>true</bool>
+    </property>
+   </widget>
+   <widget class="QPushButton" name="cancelButton">
+    <property name="geometry">
+     <rect>
+      <x>10</x>
+      <y>160</y>
+      <width>101</width>
+      <height>31</height>
+     </rect>
+    </property>
+    <property name="text">
+     <string>Cancel</string>
+    </property>
+   </widget>
+   <widget class="QLabel" name="enterNameLabel">
+    <property name="geometry">
+     <rect>
+      <x>10</x>
+      <y>10</y>
+      <width>201</width>
+      <height>21</height>
+     </rect>
+    </property>
+    <property name="autoFillBackground">
+     <bool>false</bool>
+    </property>
+    <property name="text">
+     <string>Enter name of ingredient:</string>
+    </property>
+   </widget>
+   <widget class="QLabel" name="enterMeasurementLabel">
+    <property name="geometry">
+     <rect>
+      <x>10</x>
+      <y>90</y>
+      <width>101</width>
+      <height>21</height>
+     </rect>
+    </property>
+    <property name="text">
+     <string>Measured in:</string>
+    </property>
+   </widget>
+   <widget class="QRadioButton" name="enterMeasurementMillilitres">
+    <property name="geometry">
+     <rect>
+      <x>130</x>
+      <y>110</y>
+      <width>69</width>
+      <height>21</height>
+     </rect>
+    </property>
+    <property name="text">
+     <string>Millilitres</string>
+    </property>
+   </widget>
+   <widget class="QPushButton" name="addButton">
+    <property name="geometry">
+     <rect>
+      <x>280</x>
+      <y>160</y>
+      <width>101</width>
+      <height>31</height>
+     </rect>
+    </property>
+    <property name="text">
+     <string>Add Ingredient</string>
+    </property>
+   </widget>
+   <widget class="QLabel" name="enterCalLabel">
+    <property name="geometry">
+     <rect>
+      <x>10</x>
+      <y>50</y>
+      <width>271</width>
+      <height>21</height>
+     </rect>
+    </property>
+    <property name="text">
+     <string>Enter calories in 100g/100ml of ingredient:</string>
+    </property>
+   </widget>
+   <widget class="QLineEdit" name="enterName">
+    <property name="geometry">
+     <rect>
+      <x>210</x>
+      <y>10</y>
+      <width>171</width>
+      <height>21</height>
+     </rect>
+    </property>
+    <property name="toolTip">
+     <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;e.g. Banana&lt;/p&gt;&lt;p&gt;&lt;br/&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
+    </property>
+    <property name="text">
+     <string/>
+    </property>
+   </widget>
+   <widget class="QDoubleSpinBox" name="enterCalories">
+    <property name="geometry">
+     <rect>
+      <x>281</x>
+      <y>50</y>
+      <width>91</width>
+      <height>22</height>
+     </rect>
+    </property>
+    <property name="maximum">
+     <double>999.990000000000009</double>
+    </property>
+   </widget>
+  </widget>
  </widget>
  <resources/>
  <connections/>
 </ui>
-

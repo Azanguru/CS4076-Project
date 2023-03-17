@@ -18,10 +18,15 @@ set(PROJECT_SOURCES
         mainwindow.h
         mainwindow.ui
         addingredient.ui
+        addingredient.h
+        addingredient.cpp
         ingredient.h
         ingredient.cpp
         recipe.h
         recipe.cpp
+        popup.h
+        popup.cpp
+        popup.ui
 )
 
 if(${QT_VERSION_MAJOR} GREATER_EQUAL 6)
