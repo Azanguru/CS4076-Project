@@ -14,7 +14,7 @@ Ingredient::Ingredient(QString name, double calories, double amount, bool measur
     this->measureInGrams = measureInGrams;
 }
 
-Ingredient::Ingredient(const Ingredient& ing) : name(ing.name), caloricValue(ing.caloricValue), amount(ing.amount) {}
+Ingredient::Ingredient(const Ingredient& ing) : name(ing.name), caloricValue(ing.caloricValue), amount(ing.amount), measureInGrams(ing.measureInGrams) {}
 
 QString Ingredient::getName()
 {

@@ -7,32 +7,43 @@ Recipe::Recipe(QObject *parent)
 
 }
 
-Recipe::Recipe(QString name, QVector<Ingredient> ingredientList, QString instructions, double time, QString cuisine)
+Recipe::Recipe(QString name, QVector<Ingredient*> ingredientList, QString instructions, double totalCalories, double time, QString cuisine)
 {
     this->name = name;
     this->cuisine = cuisine;
     this->instructions = instructions;
     this->ingredientList = ingredientList;
     this->time = time;
-    totalCalories = calorieCalc();
+    this->totalCalories = totalCalories;
 }
 
-Recipe::Recipe(QString name, QVector<Ingredient> ingredientList, QString instructions, double time)
+Recipe::Recipe(QString name, QVector<Ingredient*> ingredientList, QString instructions, double time, QString cuisine)
+{
+//    this->name = name;
+//    this->cuisine = cuisine;
+//    this->instructions = instructions;
+//    this->ingredientList = ingredientList;
+//    this->time = time;
+    totalCalories = calorieCalc();
+    Recipe(name, ingredientList, instructions, totalCalories, time, cuisine);
+}
+
+Recipe::Recipe(QString name, QVector<Ingredient*> ingredientList, QString instructions, double time)
 {
     Recipe(name, ingredientList, instructions, time, "Unspecified");
 }
 
-Recipe::Recipe(QString name, QVector<Ingredient> ingredientList, QString instructions)
+Recipe::Recipe(QString name, QVector<Ingredient*> ingredientList, QString instructions)
 {
     Recipe(name, ingredientList, instructions, 0, "Unspecified");
 }
 
-Recipe::Recipe(QString name, QVector<Ingredient> ingredientList, double time)
+Recipe::Recipe(QString name, QVector<Ingredient*> ingredientList, double time)
 {
     Recipe(name, ingredientList, "", time, "Unspecified");
 }
 
-Recipe::Recipe(QString name, QVector<Ingredient> ingredientList)
+Recipe::Recipe(QString name, QVector<Ingredient*> ingredientList)
 {
     Recipe(name, ingredientList, "", 0, "Unspecified");
 }
@@ -44,7 +55,7 @@ QString Recipe::getCuisine() { return cuisine; }
 
 QString Recipe::getInstructions() { return instructions; }
 
-QVector<Ingredient> Recipe::getIngredientList() { return ingredientList; }
+QVector<Ingredient*> Recipe::getIngredientList() { return ingredientList; }
 
 double Recipe::getTotalCalories() { return totalCalories; }
 
@@ -56,7 +67,7 @@ void Recipe::setCuisine(QString cuisine) { this->name = name; }
 
 void Recipe::setInstructions(QString instructions) { this->instructions = instructions; }
 
-void Recipe::setIngredientList(QVector<Ingredient> ingredientList) { this->ingredientList = ingredientList; }
+void Recipe::setIngredientList(QVector<Ingredient*> ingredientList) { this->ingredientList = ingredientList; }
 
 void Recipe::setTime(double time) { this->time = time; }
 
@@ -66,8 +77,8 @@ double Recipe::calorieCalc() // Private method to calculate the amount of calori
     double total = 0;
     for (int i = 0; i < ingredientList.size(); i++)
     {
-        Ingredient in = ingredientList[i];
-        total = total + in.getCaloricValue() * in.getAmount();
+        Ingredient *in = ingredientList[i];
+        total = total + in->getCaloricValue() * in->getAmount();
     }
     return total;
 }
