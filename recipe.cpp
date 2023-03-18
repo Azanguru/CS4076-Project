@@ -28,6 +28,7 @@ Recipe::Recipe(QString name, QVector<Ingredient*> ingredientList, QString instru
     Recipe(name, ingredientList, instructions, totalCalories, time, cuisine);
 }
 
+// Constructors
 Recipe::Recipe(QString name, QVector<Ingredient*> ingredientList, QString instructions, double time)
 {
     Recipe(name, ingredientList, instructions, time, "Unspecified");
@@ -49,17 +50,17 @@ Recipe::Recipe(QString name, QVector<Ingredient*> ingredientList)
 }
 
 // Getters and Setters
-QString Recipe::getName() { return name; }
+QString Recipe::getName() const { return name; }
 
-QString Recipe::getCuisine() { return cuisine; }
+QString Recipe::getCuisine() const { return cuisine; }
 
-QString Recipe::getInstructions() { return instructions; }
+QString Recipe::getInstructions() const { return instructions; }
 
-QVector<Ingredient*> Recipe::getIngredientList() { return ingredientList; }
+QVector<Ingredient*> Recipe::getIngredientList() const { return ingredientList; }
 
-double Recipe::getTotalCalories() { return totalCalories; }
+double Recipe::getTotalCalories() const { return totalCalories; }
 
-double Recipe::getTime() { return time; }
+double Recipe::getTime() const { return time; }
 
 void Recipe::setName(QString name) { this->name = name; }
 

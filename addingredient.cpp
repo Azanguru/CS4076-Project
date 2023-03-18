@@ -52,7 +52,7 @@ void AddIngredient::on_addButton_clicked()
 
         if (!found)
         {
-            Ingredient *in =  new Ingredient(ingredientName, ingredientCalories, 0, ingredientInGrams);
+            Ingredient *in =  new Ingredient(ingredientName, ingredientCalories, 0.0, ingredientInGrams);
             allIngredients->append(in);
 
             Popup *success = new Popup("Ingredient added successfully!");

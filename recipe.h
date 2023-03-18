@@ -34,12 +34,12 @@ public:
     void setTime(double time);
     void setInstructions(QString instructions);
 
-    QString getName();
-    QString getCuisine();
-    QString getInstructions();
-    QVector<Ingredient*> getIngredientList();
-    double getTotalCalories();
-    double getTime();
+    QString getName() const;
+    QString getCuisine() const;
+    QString getInstructions() const;
+    QVector<Ingredient*> getIngredientList() const;
+    double getTotalCalories() const;
+    double getTime() const;
 
 signals:
 

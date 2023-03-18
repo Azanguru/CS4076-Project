@@ -43,22 +43,28 @@ void MainWindow::csvRead()
     QFile file1("ingredients.csv");
     file1.open(QIODevice::ReadOnly | QIODevice::Text);
 
-    QTextStream in1(&file1);
-    while (!in1.atEnd())
+    if (file1.exists())
     {
-        QString line = in1.readLine();
-        processIngredient(line);
+        QTextStream in1(&file1);
+        while (!in1.atEnd())
+        {
+            QString line = in1.readLine();
+            processIngredient(line);
+        }
     }
     file1.close();
 
     QFile file2("recipes.csv");
     file2.open(QIODevice::ReadOnly | QIODevice::Text);
 
-    QTextStream in2(&file2);
-    while (!in2.atEnd())
+    if (file2.exists())
     {
-        QString line = in2.readLine();
-        processRecipe(line);
+        QTextStream in2(&file2);
+        while (!in2.atEnd())
+        {
+            QString line = in2.readLine();
+            processRecipe(line);
+        }
     }
     file2.close();
 }
@@ -66,7 +72,7 @@ void MainWindow::csvRead()
 void MainWindow::processIngredient(QString line)
 {
     QStringList list = line.split(",");
-    Ingredient *in = new Ingredient(list.at(0), list.at(1).toDouble(), 0, list.at(2).toInt());
+    Ingredient *in = new Ingredient(list.at(0), 100*(list.at(1).toDouble()), 0, list.at(2).toInt());
     allIngredients->append(in);
 }
 
@@ -98,6 +104,7 @@ void MainWindow::csvWrite()
         {
             out << allIngredients->at(i)->getName() << ",";
             out << allIngredients->at(i)->getCaloricValue() << ",";
+            out << allIngredients->at(i)->getAmount() << ",";
             out << allIngredients->at(i)->measuredInGrams() << "\n";
         }
     }
@@ -107,7 +114,7 @@ void MainWindow::csvWrite()
     recipesFile.open(QIODevice::WriteOnly | QIODevice::Text);
     if (!allRecipes->isEmpty())
     {
-        QTextStream out = QTextStream(&recipesFile);
+        QDataStream out = QDataStream(&recipesFile);
         int size = allRecipes->size();
         for (int i = 0; i < size; i++)
         {
@@ -116,16 +123,18 @@ void MainWindow::csvWrite()
             out << allRecipes->takeAt(i)->getCuisine() << ",";
             out << allRecipes->takeAt(i)->getInstructions() << ",";
             out << allRecipes->takeAt(i)->getTotalCalories() << ",";
-            out << allRecipes->takeAt(i)->getTime() << "\n";
+            out << allRecipes->takeAt(i)->getTime() << ",";
             out << numberOfIngredients << ",";
             for (int j = 0; j < numberOfIngredients; j++)
             {
+                out << allRecipes->takeAt(i)->getIngredientList()[j] << ",";
                 Ingredient *in = allRecipes->takeAt(i)->getIngredientList()[j];
                 out << in->getName() << ",";
                 out << in->getCaloricValue() << ",";
                 out << in->getAmount() << ",";
                 out << in->measuredInGrams() << ",";
             }
+            out << "\n";
         }
     }
     recipesFile.close();
