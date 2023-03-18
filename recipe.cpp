@@ -7,7 +7,8 @@ Recipe::Recipe(QObject *parent)
 
 }
 
-Recipe::Recipe(QString name, QVector<Ingredient*> ingredientList, QString instructions, double totalCalories, double time, QString cuisine)
+Recipe::Recipe(QString name, QVector<Ingredient*> ingredientList, QString instructions, double totalCalories, double time, QString cuisine,
+               bool starred = false)
 {
     this->name = name;
     this->cuisine = cuisine;
@@ -15,6 +16,7 @@ Recipe::Recipe(QString name, QVector<Ingredient*> ingredientList, QString instru
     this->ingredientList = ingredientList;
     this->time = time;
     this->totalCalories = totalCalories;
+    this->starred = starred;
 }
 
 Recipe::Recipe(QString name, QVector<Ingredient*> ingredientList, QString instructions, double time, QString cuisine)
@@ -62,6 +64,8 @@ double Recipe::getTotalCalories() const { return totalCalories; }
 
 double Recipe::getTime() const { return time; }
 
+bool Recipe::getStarred() const { return starred; }
+
 void Recipe::setName(QString name) { this->name = name; }
 
 void Recipe::setCuisine(QString cuisine) { this->name = name; }
@@ -71,6 +75,8 @@ void Recipe::setInstructions(QString instructions) { this->instructions = instru
 void Recipe::setIngredientList(QVector<Ingredient*> ingredientList) { this->ingredientList = ingredientList; }
 
 void Recipe::setTime(double time) { this->time = time; }
+
+void Recipe::setStarred(bool starred) { this->starred = starred; }
 
 
 double Recipe::calorieCalc() // Private method to calculate the amount of calories in a recipe according to the ingredients

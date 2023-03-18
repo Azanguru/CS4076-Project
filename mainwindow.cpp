@@ -2,6 +2,8 @@
 #include "./ui_mainwindow.h"
 #include "addingredient.h"
 #include "ingredient.h"
+#include "addrecipe.h"
+#include "recipe.h"
 
 #include <QVector>
 #include <QFile>
@@ -16,6 +18,7 @@ MainWindow::MainWindow(QWidget *parent)
     // Read all data from csvs
     csvRead();
     ui->setupUi(this);
+    ui->pages->setCurrentIndex(0);
 }
 
 MainWindow::~MainWindow()
@@ -72,7 +75,7 @@ void MainWindow::csvRead()
 void MainWindow::processIngredient(QString line)
 {
     QStringList list = line.split(",");
-    Ingredient *in = new Ingredient(list.at(0), 100*(list.at(1).toDouble()), 0, list.at(2).toInt());
+    Ingredient *in = new Ingredient(list.at(0), 100*(list.at(1).toDouble()), 0, list.at(3).toInt());
     allIngredients->append(in);
 }
 
@@ -80,15 +83,15 @@ void MainWindow::processRecipe(QString line)
 {
     QStringList list = line.split(",");
     QVector<Ingredient*> ingredientList;
-    int numberOfIngredients = list.at(5).toInt();
-    int i = 0, j = 5;
+    int numberOfIngredients = list.at(6).toInt();
+    int i = 0, j = 6;
     while (i < numberOfIngredients)
     {
         Ingredient *in = new Ingredient(list.at(j++), list.at(j++).toDouble(), list.at(j++).toDouble(), list.at(j++).toInt());
         ingredientList.append(in);
         i++;
     }
-    Recipe *r = new Recipe(list.at(0), ingredientList, list.at(2), list.at(3).toDouble(), list.at(4).toDouble(), list.at(1));
+    Recipe *r = new Recipe(list.at(0), ingredientList, list.at(2), list.at(3).toDouble(), list.at(4).toDouble(), list.at(1), list.at(5).toInt());
     allRecipes->append(r);
 }
 
@@ -105,7 +108,7 @@ void MainWindow::csvWrite()
             out << allIngredients->at(i)->getName() << ",";
             out << allIngredients->at(i)->getCaloricValue() << ",";
             out << allIngredients->at(i)->getAmount() << ",";
-            out << allIngredients->at(i)->measuredInGrams() << "\n";
+            out << (int)(allIngredients->at(i)->measuredInGrams()) << "\n";
         }
     }
     ingredientsFile.close();
@@ -124,6 +127,7 @@ void MainWindow::csvWrite()
             out << allRecipes->takeAt(i)->getInstructions() << ",";
             out << allRecipes->takeAt(i)->getTotalCalories() << ",";
             out << allRecipes->takeAt(i)->getTime() << ",";
+            out << (int)(allRecipes->takeAt(i)->getStarred()) << ",";
             out << numberOfIngredients << ",";
             for (int j = 0; j < numberOfIngredients; j++)
             {
@@ -139,3 +143,21 @@ void MainWindow::csvWrite()
     }
     recipesFile.close();
 }
+
+void MainWindow::on_viewIngredientsButton_clicked()
+{
+        ui->pages->setCurrentIndex(3);
+}
+
+void MainWindow::on_viBack_clicked()
+{
+        ui->pages->setCurrentIndex(0);
+}
+
+void MainWindow::on_addRecipeButton_clicked()
+{
+    AddRecipe addRecipe = AddRecipe(allRecipes);
+    addRecipe.setModal(true);
+    addRecipe.exec();
+}
+

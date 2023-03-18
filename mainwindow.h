@@ -24,6 +24,12 @@ private slots:
 
     void on_exitButton_clicked();
 
+    void on_viewIngredientsButton_clicked();
+
+    void on_viBack_clicked();
+
+    void on_addRecipeButton_clicked();
+
 private:
     Ui::MainWindow *ui;
     QVector<Ingredient*> *allIngredients = new QVector<Ingredient*>;

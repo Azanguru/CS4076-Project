@@ -27,6 +27,9 @@ set(PROJECT_SOURCES
         popup.h
         popup.cpp
         popup.ui
+        addrecipe.ui
+        addrecipe.h
+        addrecipe.cpp
 )
 
 if(${QT_VERSION_MAJOR} GREATER_EQUAL 6)

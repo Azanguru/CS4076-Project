@@ -15,12 +15,13 @@ private:
     QVector<Ingredient*> ingredientList;
     double totalCalories;
     double time;
+    bool starred;
 
     double calorieCalc();
 
 public:
     explicit Recipe(QObject *parent = nullptr);
-    Recipe(QString name, QVector<Ingredient*>, QString instructions, double totalCalories, double time, QString cuisine);
+    Recipe(QString name, QVector<Ingredient*>, QString instructions, double totalCalories, double time, QString cuisine, bool starred);
     Recipe(QString name, QVector<Ingredient*>, QString instructions, double time, QString cuisine);
     Recipe(QString name, QVector<Ingredient*>, QString instructions, double time);
     Recipe(QString name, QVector<Ingredient*>, QString instructions);
@@ -33,6 +34,7 @@ public:
     void setTotalCalories(double totalCalories);
     void setTime(double time);
     void setInstructions(QString instructions);
+    void setStarred(bool starred);
 
     QString getName() const;
     QString getCuisine() const;
@@ -40,6 +42,7 @@ public:
     QVector<Ingredient*> getIngredientList() const;
     double getTotalCalories() const;
     double getTime() const;
+    bool getStarred() const;
 
 signals:
 
