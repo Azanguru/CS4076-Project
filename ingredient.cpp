@@ -16,6 +16,25 @@ Ingredient::Ingredient(QString name, double calories, double amount, bool measur
 
 Ingredient::Ingredient(const Ingredient& ing) : name(ing.name), caloricValue(ing.caloricValue), amount(ing.amount), measureInGrams(ing.measureInGrams) {}
 
+//Overloaded operators
+QTextStream & operator<<(QTextStream &textStream, Ingredient *ingredient)
+{
+    textStream << ingredient->getName() << ",";
+    textStream << ingredient->getCaloricValue() << ",";
+    textStream << ingredient->getAmount() << ",";
+    textStream << (int)(ingredient->measuredInGrams()) << ",";
+    return textStream;
+}
+
+QTextStream & operator<<(QTextStream &textStream, Ingredient &ingredient)
+{
+    textStream << ingredient.getName() << ",";
+    textStream << ingredient.getCaloricValue() << ",";
+    textStream << ingredient.getAmount() << ",";
+    textStream << (int)(ingredient.measuredInGrams()) << ",";
+    return textStream;
+}
+
 QString Ingredient::getName()
 {
     return name;

@@ -105,10 +105,7 @@ void MainWindow::csvWrite()
         int size = allIngredients->size();
         for (int i = 0; i < size; i++)
         {
-            out << allIngredients->at(i)->getName() << ",";
-            out << allIngredients->at(i)->getCaloricValue() << ",";
-            out << allIngredients->at(i)->getAmount() << ",";
-            out << (int)(allIngredients->at(i)->measuredInGrams()) << "\n";
+            out << allIngredients->at(i) << "\n";
         }
     }
     ingredientsFile.close();
@@ -117,7 +114,7 @@ void MainWindow::csvWrite()
     recipesFile.open(QIODevice::WriteOnly | QIODevice::Text);
     if (!allRecipes->isEmpty())
     {
-        QDataStream out = QDataStream(&recipesFile);
+        QTextStream out = QTextStream(&recipesFile);
         int size = allRecipes->size();
         for (int i = 0; i < size; i++)
         {
@@ -132,11 +129,6 @@ void MainWindow::csvWrite()
             for (int j = 0; j < numberOfIngredients; j++)
             {
                 out << allRecipes->takeAt(i)->getIngredientList()[j] << ",";
-                Ingredient *in = allRecipes->takeAt(i)->getIngredientList()[j];
-                out << in->getName() << ",";
-                out << in->getCaloricValue() << ",";
-                out << in->getAmount() << ",";
-                out << in->measuredInGrams() << ",";
             }
             out << "\n";
         }

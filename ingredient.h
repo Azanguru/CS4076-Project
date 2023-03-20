@@ -2,6 +2,7 @@
 #define INGREDIENT_H
 
 #include <QObject>
+#include <QTextStream>
 
 class Ingredient : public QObject
 {
@@ -17,6 +18,9 @@ public:
     explicit Ingredient(QObject *parent = nullptr);
     Ingredient(const Ingredient& ing);
     Ingredient(QString name, double calories, double amount, bool measureInGrams);
+
+    friend QTextStream & operator<<(QTextStream &textStream, Ingredient *ingredient);
+    friend QTextStream & operator<<(QTextStream &textStream, Ingredient &ingredient);
 
     void setName(QString newName);
     void setCaloricValue(double calories);
