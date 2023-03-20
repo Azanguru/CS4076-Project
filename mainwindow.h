@@ -7,6 +7,8 @@
 #include "ingredient.h"
 #include "recipe.h"
 
+extern bool popupReturn;
+
 QT_BEGIN_NAMESPACE
 namespace Ui { class MainWindow; }
 QT_END_NAMESPACE
@@ -29,6 +31,14 @@ private slots:
     void on_viBack_clicked();
 
     void on_addRecipeButton_clicked();
+
+    void on_actionSave_triggered();
+
+    void on_actionDelete_triggered();
+
+    void on_actionSave_Exit_triggered();
+
+    void on_actionExit_triggered();
 
 private:
     Ui::MainWindow *ui;

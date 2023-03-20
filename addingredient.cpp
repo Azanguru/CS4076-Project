@@ -32,6 +32,7 @@ void AddIngredient::on_cancelButton_clicked()
 
 void AddIngredient::on_addButton_clicked()
 {
+
     if ((!ingredientName.isNull()) && (ingredientCalories != 0.0))
     {
         int size = allIngredients->size();
@@ -41,7 +42,7 @@ void AddIngredient::on_addButton_clicked()
             if (ingredientName.toUpper() == (*allIngredients)[i]->getName().toUpper()) {
                 found = true;
 
-                Popup *exists = new Popup("Ingredient already exists with that name");
+                Popup *exists = new Popup("Ok", "Ingredient already exists with that name");
                 exists->setModal(true);
                 exists->exec();
                 delete exists;
@@ -55,7 +56,7 @@ void AddIngredient::on_addButton_clicked()
             Ingredient *in =  new Ingredient(ingredientName, ingredientCalories, 0.0, ingredientInGrams);
             allIngredients->append(in);
 
-            Popup *success = new Popup("Ingredient added successfully!");
+            Popup *success = new Popup("Ok", "Ingredient added successfully!");
             success->setModal(true);
             success->exec();
             delete success;
@@ -64,7 +65,7 @@ void AddIngredient::on_addButton_clicked()
         }
 
     } else {
-        Popup *missingInfo = new Popup("Ingredient name and/or caloric value is/are missing. Please ensure these are entered correctly and try again.");
+        Popup *missingInfo = new Popup("Ok", "Ingredient name and/or caloric value is/are missing. Please ensure these are entered correctly and try again.");
         missingInfo->setModal(true);
         missingInfo->exec();
         delete missingInfo;

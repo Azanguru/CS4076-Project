@@ -4,12 +4,15 @@
 #include "ingredient.h"
 #include "addrecipe.h"
 #include "recipe.h"
+#include "popup.h"
 
 #include <QVector>
 #include <QFile>
-#include <QStringList>
+#include <QPushButton>
 
 using namespace std;
+
+bool popupReturn = false;
 
 MainWindow::MainWindow(QWidget *parent)
     : QMainWindow(parent)
@@ -151,5 +154,48 @@ void MainWindow::on_addRecipeButton_clicked()
     AddRecipe addRecipe = AddRecipe(allRecipes);
     addRecipe.setModal(true);
     addRecipe.exec();
+}
+
+
+void MainWindow::on_actionSave_triggered()
+{
+    this->csvWrite();
+}
+
+
+void MainWindow::on_actionDelete_triggered()
+{
+    Popup *confirmation = new Popup("Cancel", "Confirm", "Are you sure you want to delete the saved data (this cannot be undone)?");
+    confirmation->setModal(true);
+    confirmation->exec();
+    delete confirmation;
+
+    if(popupReturn) {
+        QFile file("ingredients.csv");
+        file.open(QFile::WriteOnly|QFile::Truncate);
+
+        QFile file2("recipes.csv");
+        file2.open(QFile::WriteOnly|QFile::Truncate);
+    }
+}
+
+
+void MainWindow::on_actionSave_Exit_triggered()
+{
+    csvWrite();
+    this->close();
+}
+
+
+void MainWindow::on_actionExit_triggered()
+{
+    Popup *confirmation = new Popup("Cancel", "Proceed", "Are you sure you want to exit without saving (all unsaved data will be lost)?");
+    confirmation->setModal(true);
+    confirmation->exec();
+    delete confirmation;
+
+    if(popupReturn) {
+        this->close();
+    }
 }
 

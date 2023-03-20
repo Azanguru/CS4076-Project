@@ -224,8 +224,38 @@
      <height>17</height>
     </rect>
    </property>
+   <widget class="QMenu" name="menuSave">
+    <property name="title">
+     <string>File</string>
+    </property>
+    <addaction name="actionSave"/>
+    <addaction name="actionDelete"/>
+    <addaction name="actionSave_Exit"/>
+    <addaction name="actionExit"/>
+   </widget>
+   <addaction name="menuSave"/>
   </widget>
   <widget class="QStatusBar" name="statusbar"/>
+  <action name="actionSave">
+   <property name="text">
+    <string>Save</string>
+   </property>
+  </action>
+  <action name="actionDelete">
+   <property name="text">
+    <string>Delete Saved Data</string>
+   </property>
+  </action>
+  <action name="actionSave_Exit">
+   <property name="text">
+    <string>Save and Exit</string>
+   </property>
+  </action>
+  <action name="actionExit">
+   <property name="text">
+    <string>Exit</string>
+   </property>
+  </action>
  </widget>
  <resources/>
  <connections/>
