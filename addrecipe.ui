@@ -132,74 +132,60 @@
    <layout class="QVBoxLayout" name="arIngAndInstrLayout">
     <item>
      <layout class="QGridLayout" name="arIngLayout">
-      <item row="0" column="2">
-       <widget class="QDoubleSpinBox" name="arIng1Amt">
-        <property name="sizePolicy">
-         <sizepolicy hsizetype="Fixed" vsizetype="Fixed">
-          <horstretch>0</horstretch>
-          <verstretch>0</verstretch>
-         </sizepolicy>
-        </property>
-        <property name="maximum">
-         <double>999.990000000000009</double>
-        </property>
-       </widget>
-      </item>
-      <item row="3" column="1" colspan="2">
-       <widget class="QPushButton" name="arIntAddSlot">
-        <property name="text">
-         <string>Add another ingredient slot</string>
-        </property>
-       </widget>
-      </item>
-      <item row="2" column="2">
-       <widget class="QDoubleSpinBox" name="arIng3Amt">
-        <property name="sizePolicy">
-         <sizepolicy hsizetype="Fixed" vsizetype="Fixed">
-          <horstretch>0</horstretch>
-          <verstretch>0</verstretch>
-         </sizepolicy>
-        </property>
-        <property name="maximum">
-         <double>999.990000000000009</double>
-        </property>
-       </widget>
-      </item>
-      <item row="2" column="1">
-       <widget class="QComboBox" name="arIng2"/>
-      </item>
-      <item row="0" column="1">
-       <widget class="QComboBox" name="arIng1">
-        <property name="sizePolicy">
-         <sizepolicy hsizetype="Preferred" vsizetype="Fixed">
-          <horstretch>0</horstretch>
-          <verstretch>0</verstretch>
-         </sizepolicy>
-        </property>
-       </widget>
-      </item>
-      <item row="1" column="2">
-       <widget class="QDoubleSpinBox" name="arIng2Amt">
-        <property name="sizePolicy">
-         <sizepolicy hsizetype="Fixed" vsizetype="Fixed">
-          <horstretch>0</horstretch>
-          <verstretch>0</verstretch>
-         </sizepolicy>
-        </property>
-        <property name="maximum">
-         <double>999.990000000000009</double>
-        </property>
-       </widget>
-      </item>
-      <item row="1" column="1">
-       <widget class="QComboBox" name="arIng3"/>
-      </item>
       <item row="0" column="0" rowspan="2">
        <widget class="QLabel" name="arIngLabel">
         <property name="text">
          <string>Add ingredients and the amount
 (in grams or millilitres) of each:</string>
         </property>
+       </widget>
+      </item>
+      <item row="2" column="1" colspan="2">
+       <widget class="QPushButton" name="arIngAddSlot">
+        <property name="text">
+         <string>Add another ingredient slot</string>
+        </property>
+       </widget>
+      </item>
+      <item row="0" column="1">
+       <widget class="QScrollArea" name="arIngScroll">
+        <property name="horizontalScrollBarPolicy">
+         <enum>Qt::ScrollBarAlwaysOff</enum>
+        </property>
+        <property name="sizeAdjustPolicy">
+         <enum>QAbstractScrollArea::AdjustIgnored</enum>
+        </property>
+        <property name="widgetResizable">
+         <bool>true</bool>
+        </property>
+        <property name="alignment">
+         <set>Qt::AlignLeading|Qt::AlignLeft|Qt::AlignVCenter</set>
+        </property>
+        <widget class="QWidget" name="scrollAreaWidgetContents">
+         <property name="geometry">
+          <rect>
+           <x>0</x>
+           <y>0</y>
+           <width>357</width>
+           <height>135</height>
+          </rect>
+         </property>
+         <widget class="QWidget" name="verticalLayoutWidget">
+          <property name="geometry">
+           <rect>
+            <x>-1</x>
+            <y>0</y>
+            <width>361</width>
+            <height>141</height>
+           </rect>
+          </property>
+          <layout class="QVBoxLayout" name="arIngVBox">
+           <property name="sizeConstraint">
+            <enum>QLayout::SetDefaultConstraint</enum>
+           </property>
+          </layout>
+         </widget>
+        </widget>
        </widget>
       </item>
      </layout>

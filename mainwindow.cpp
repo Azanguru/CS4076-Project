@@ -151,7 +151,7 @@ void MainWindow::on_viBack_clicked()
 
 void MainWindow::on_addRecipeButton_clicked()
 {
-    AddRecipe addRecipe = AddRecipe(allRecipes);
+    AddRecipe addRecipe = AddRecipe(allRecipes, allIngredients);
     addRecipe.setModal(true);
     addRecipe.exec();
 }
