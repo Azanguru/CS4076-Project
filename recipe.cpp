@@ -19,7 +19,7 @@ Recipe::Recipe(QString name, QVector<Ingredient*> ingredientList, QString instru
     this->starred = starred;
 }
 
-Recipe::Recipe(QString name, QVector<Ingredient*> ingredientList, QString instructions, double time, QString cuisine)
+Recipe::Recipe(QString name, QVector<Ingredient*> ingredientList, QString instructions, double time, QString cuisine, bool starred)
 {
 //    this->name = name;
 //    this->cuisine = cuisine;
@@ -27,13 +27,13 @@ Recipe::Recipe(QString name, QVector<Ingredient*> ingredientList, QString instru
 //    this->ingredientList = ingredientList;
 //    this->time = time;
     totalCalories = calorieCalc();
-    Recipe(name, ingredientList, instructions, totalCalories, time, cuisine);
+    Recipe(name, ingredientList, instructions, totalCalories, time, cuisine, starred);
 }
 
 // Constructors
-Recipe::Recipe(QString name, QVector<Ingredient*> ingredientList, QString instructions, double time)
+Recipe::Recipe(QString name, QVector<Ingredient*> ingredientList, QString instructions, double time, bool starred)
 {
-    Recipe(name, ingredientList, instructions, time, "Unspecified");
+    Recipe(name, ingredientList, instructions, time, "Unspecified", starred);
 }
 
 Recipe::Recipe(QString name, QVector<Ingredient*> ingredientList, QString instructions)

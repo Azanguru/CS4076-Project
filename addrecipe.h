@@ -32,16 +32,17 @@ private slots:
 
     void on_arTimeEnter_valueChanged(int arg1);
 
+    void on_arConfirmAdd_clicked();
+
 private:
     Ui::AddRecipe *ui;
     QVector<Recipe*> *allRecipes;
     QVector<Ingredient*> *allIngredients;
-    QVector<QComboBox> boxes;
+    //QVector<QComboBox> boxes;
     QString name;
     QString cuisine;
     QString instructions;
     QVector<Ingredient*> ingredientList;
-    double totalCalories;
     double time;
     bool starred = false;
 };
