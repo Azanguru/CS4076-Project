@@ -153,6 +153,9 @@ void MainWindow::on_viewIngredientsButton_clicked()
             QPushButton *editIngredient = new QPushButton("Edit");
             QPushButton *deleteIngredient = new QPushButton("Delete");
 
+            name->setIndent(5);
+            name->setSizePolicy(QSizePolicy::MinimumExpanding, QSizePolicy::Fixed);
+            calories->setSizePolicy(QSizePolicy::MinimumExpanding, QSizePolicy::Fixed);
 
             connect(editIngredient, &QPushButton::clicked, [=](){ viewIngredientsButtonPressed(i, true); } );
             connect(deleteIngredient, &QPushButton::clicked, [=](){ viewIngredientsButtonPressed(i, false); } );
