@@ -28,6 +28,9 @@ public:
     Recipe(QString name, QVector<Ingredient*>, double time);
     Recipe(QString name, QVector<Ingredient*>);
 
+    friend QTextStream & operator<<(QTextStream &textStream, Recipe *recipe);
+    friend QTextStream & operator<<(QTextStream &textStream, Recipe &recipe);
+
     void setName(QString name);
     void setCuisine(QString cuisine);
     void setIngredientList(QVector<Ingredient*>);

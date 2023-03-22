@@ -95,25 +95,6 @@ void AddRecipe::on_arConfirmAdd_clicked()
 {
     instructions = ui->arInstrEnter->toPlainText();
 
-//    QList<QHBoxLayout*> listOfChildren = ui->arIngVBox->findChildren<QHBoxLayout*>();
-//    foreach (QHBoxLayout *hbox, listOfChildren)
-//    {
-//        QComboBox *box = hbox->findChild<QComboBox*>();
-//        QDoubleSpinBox *spinBox = hbox->findChild<QDoubleSpinBox*>();
-//        QString ingName = box->currentText();
-//        int size = allIngredients->size();
-
-//        for (int i = 0; i < size; i++)
-//        {
-//            if (ingName.toUpper() == allIngredients->takeAt(i)->getName().toUpper())
-//            {
-//                Ingredient *ing = new Ingredient(allIngredients->takeAt(i));
-//                ing->setAmount(spinBox->value());
-//                ingredientList.append(ing);
-//            }
-//        }
-//    }
-
     if ((!name.isNull()) && (ingredientList.size() != 0) && (!instructions.isNull()) && (time != 0))
     {
         if (!cuisine.isNull())

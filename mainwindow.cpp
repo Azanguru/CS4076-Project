@@ -91,7 +91,7 @@ void MainWindow::processRecipe(QString line)
     int i = 0, j = 6;
     while (i < numberOfIngredients)
     {
-        Ingredient *in = new Ingredient(list.at(j++), list.at(j++).toDouble(), list.at(j++).toDouble(), list.at(j++).toInt());
+        Ingredient *in = new Ingredient(list.at(j++), 100*list.at(j++).toDouble(), list.at(j++).toDouble(), list.at(j++).toInt());
         ingredientList.append(in);
         i++;
     }
@@ -122,19 +122,7 @@ void MainWindow::csvWrite()
         int size = allRecipes->size();
         for (int i = 0; i < size; i++)
         {
-            int numberOfIngredients = allRecipes->at(i)->getIngredientList().size();
-            out << allRecipes->at(i)->getName() << ",";
-            out << allRecipes->at(i)->getCuisine() << ",";
-            out << allRecipes->at(i)->getInstructions() << ",";
-            out << allRecipes->at(i)->getTotalCalories() << ",";
-            out << allRecipes->at(i)->getTime() << ",";
-            out << (int)(allRecipes->at(i)->getStarred()) << ",";
-            out << numberOfIngredients << ",";
-            for (int j = 0; j < numberOfIngredients; j++)
-            {
-                out << allRecipes->at(i)->getIngredientList()[j] << ",";
-            }
-            out << "\n";
+            out << allRecipes->at(i) << "\n";
         }
     }
     recipesFile.close();

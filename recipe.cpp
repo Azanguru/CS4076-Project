@@ -51,6 +51,43 @@ Recipe::Recipe(QString name, QVector<Ingredient*> ingredientList)
     Recipe(name, ingredientList, "", 0, "Unspecified");
 }
 
+//Overloaded Operators
+QTextStream & operator<<(QTextStream &textStream, Recipe *recipe)
+{
+    int numberOfIngredients = recipe->getIngredientList().size();
+    textStream << recipe->getName() << ",";
+    textStream << recipe->getCuisine() << ",";
+    textStream << recipe->getInstructions() << ",";
+    textStream << recipe->getTotalCalories() << ",";
+    textStream << recipe->getTime() << ",";
+    textStream << (int)(recipe->getStarred()) << ",";
+    textStream << numberOfIngredients << ",";
+    for (int j = 0; j < numberOfIngredients; j++)
+    {
+        textStream << recipe->getIngredientList()[j] << ",";
+    }
+
+    return textStream;
+}
+
+QTextStream & operator<<(QTextStream &textStream, Recipe &recipe)
+{
+    int numberOfIngredients = recipe.getIngredientList().size();
+    textStream << recipe.getName() << ",";
+    textStream << recipe.getCuisine() << ",";
+    textStream << recipe.getInstructions() << ",";
+    textStream << recipe.getTotalCalories() << ",";
+    textStream << recipe.getTime() << ",";
+    textStream << (int)(recipe.getStarred()) << ",";
+    textStream << numberOfIngredients << ",";
+    for (int j = 0; j < numberOfIngredients; j++)
+    {
+        textStream << recipe.getIngredientList()[j] << ",";
+    }
+
+    return textStream;
+}
+
 // Getters and Setters
 QString Recipe::getName() const { return name; }
 
