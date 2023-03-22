@@ -19,6 +19,19 @@ AddIngredient::AddIngredient(QVector<Ingredient*> *allIngredients) :
     ui->setupUi(this);
 }
 
+AddIngredient::AddIngredient(QVector<Ingredient*> *allIngredients, Ingredient *editIng, bool editing, int pos) :
+    ui(new Ui::AddIngredient)
+{
+    this->allIngredients = allIngredients;
+    this->editIng = editIng;
+    this->editing = editing;
+    this->pos = pos;
+    ui->setupUi(this);
+    ui->enterName->setText(editIng->getName());
+    ui->enterCalories->setValue(editIng->getCaloricValue()*100);
+    if (!editIng->measuredInGrams()) { ui->enterMeasurementMillilitres->toggle(); }
+}
+
 AddIngredient::~AddIngredient()
 {
     delete ui;
@@ -51,12 +64,22 @@ void AddIngredient::on_addButton_clicked()
             }
         }
 
-        if (!found)
+        if (!found && !editing)
         {
             Ingredient *in =  new Ingredient(ingredientName, ingredientCalories, 0.0, ingredientInGrams);
             allIngredients->append(in);
 
             Popup *success = new Popup("Ok", "Ingredient added successfully!");
+            success->setModal(true);
+            success->exec();
+            delete success;
+
+            this->close();
+        } else if (!found && editing) {
+            Ingredient *in =  new Ingredient(ingredientName, ingredientCalories, 0.0, ingredientInGrams);
+            allIngredients->replace(pos, in);
+
+            Popup *success = new Popup("Ok", "Ingredient edited successfully!");
             success->setModal(true);
             success->exec();
             delete success;

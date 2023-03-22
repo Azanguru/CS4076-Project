@@ -20,6 +20,7 @@ class AddIngredient : public QDialog
 public:
     explicit AddIngredient(QWidget *parent = nullptr);
     AddIngredient(QVector<Ingredient*> *allIngredients);
+    AddIngredient(QVector<Ingredient*> *allIngredients, Ingredient *editIng, bool editing, int pos);
     ~AddIngredient();
 
 private slots:
@@ -41,6 +42,9 @@ private:
     double ingredientCalories = 0.0;
     bool ingredientInGrams = true;
     QVector<Ingredient*> *allIngredients;
+    Ingredient *editIng;
+    bool editing = false;
+    int pos;
 };
 
 #endif // ADDINGREDIENT_H

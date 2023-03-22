@@ -154,7 +154,8 @@ void MainWindow::on_viewIngredientsButton_clicked()
             QPushButton *deleteIngredient = new QPushButton("Delete");
 
 
-
+            connect(editIngredient, &QPushButton::clicked, [=](){ viewIngredientsButtonPressed(i, true); } );
+            connect(deleteIngredient, &QPushButton::clicked, [=](){ viewIngredientsButtonPressed(i, false); } );
             ui->ingGrid->addWidget(name, i, 0);
             ui->ingGrid->addWidget(calories, i, 1);
             ui->ingGrid->addWidget(editIngredient, i, 2);
@@ -162,6 +163,21 @@ void MainWindow::on_viewIngredientsButton_clicked()
 
             ui->scrollAreaWidgetContents->setLayout(ui->ingGrid);
         }
+}
+
+void MainWindow::viewIngredientsButtonPressed(int row, bool val)
+{
+    if (val)
+    {
+        AddIngredient addIngredient = AddIngredient(allIngredients, allIngredients->at(row), true, row);
+        addIngredient.setModal(true);
+        addIngredient.exec();
+    } else {
+        Popup popup = Popup("Cancel", "Confirm", "Are you sure you want to delete this ingredient?");
+        popup.setModal(true);
+        popup.exec();
+        if (popupReturn) { allIngredients->removeAt(row); }
+    }
 }
 
 void MainWindow::on_viBack_clicked()

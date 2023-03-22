@@ -49,5 +49,6 @@ private:
     void csvRead();
     void processIngredient(QString line);
     void processRecipe(QString line);
+    void viewIngredientsButtonPressed(int row, bool val);
 };
 #endif // MAINWINDOW_H
