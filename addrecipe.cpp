@@ -31,7 +31,6 @@ void AddRecipe::on_arConfirmCancel_clicked()
     this->close();
 }
 
-
 void AddRecipe::on_arFavourite_clicked()
 {
     starred = !starred;
@@ -42,13 +41,12 @@ void AddRecipe::on_arFavourite_clicked()
     }
 }
 
-
-
 void AddRecipe::on_arIngAddSlot_clicked()
 {
     QHBoxLayout *hbox = new QHBoxLayout();
     QComboBox *combo = new QComboBox();
     QDoubleSpinBox *spin = new QDoubleSpinBox();
+    static int count = 0;
 
     for (int i = 0; i < allIngredients->size(); ++i)
     {
@@ -59,23 +57,34 @@ void AddRecipe::on_arIngAddSlot_clicked()
     spin->setMaximum(9999);
     hbox->addWidget(combo);
     hbox->addWidget(spin);
+    count++;
 
+    connect(combo, SIGNAL(currentIndexChanged(int)), SLOT(ingredientSelected(int, int counter)));
+    connect(spin, SIGNAL(valueChanged(double)), SLOT(ingredientAmountChanged(double, int counter)));
     ui->arIngVBox->addLayout(hbox);
     ui->scrollAreaWidgetContents->setLayout(ui->arIngVBox);
+    ingredientList.append(allIngredients->at(0));
 }
 
+void AddRecipe::ingredientSelected(int index, int counter)
+{
+    ingredientList.replace(counter, allIngredients->at(index));
+}
+
+void AddRecipe::ingredientAmountChanged(double value, int counter)
+{
+    ingredientList.at(counter)->setAmount(value);
+}
 
 void AddRecipe::on_lineEdit_textChanged(const QString &arg1)
 {
     name = arg1;
 }
 
-
 void AddRecipe::on_arCuisineEnter_textChanged(const QString &arg1)
 {
     cuisine = arg1;
 }
-
 
 void AddRecipe::on_arTimeEnter_valueChanged(int arg1)
 {
@@ -86,24 +95,24 @@ void AddRecipe::on_arConfirmAdd_clicked()
 {
     instructions = ui->arInstrEnter->toPlainText();
 
-    QList<QHBoxLayout*> listOfChildren = ui->arIngVBox->findChildren<QHBoxLayout*>();
-    foreach (QHBoxLayout *hbox, listOfChildren)
-    {
-        QComboBox *box = hbox->findChild<QComboBox*>();
-        QDoubleSpinBox *spinBox = hbox->findChild<QDoubleSpinBox*>();
-        QString ingName = box->currentText();
-        int size = allIngredients->size();
+//    QList<QHBoxLayout*> listOfChildren = ui->arIngVBox->findChildren<QHBoxLayout*>();
+//    foreach (QHBoxLayout *hbox, listOfChildren)
+//    {
+//        QComboBox *box = hbox->findChild<QComboBox*>();
+//        QDoubleSpinBox *spinBox = hbox->findChild<QDoubleSpinBox*>();
+//        QString ingName = box->currentText();
+//        int size = allIngredients->size();
 
-        for (int i = 0; i < size; i++)
-        {
-            if (ingName.toUpper() == allIngredients->takeAt(i)->getName().toUpper())
-            {
-                Ingredient *ing = new Ingredient(allIngredients->takeAt(i));
-                ing->setAmount(spinBox->value());
-                ingredientList.append(ing);
-            }
-        }
-    }
+//        for (int i = 0; i < size; i++)
+//        {
+//            if (ingName.toUpper() == allIngredients->takeAt(i)->getName().toUpper())
+//            {
+//                Ingredient *ing = new Ingredient(allIngredients->takeAt(i));
+//                ing->setAmount(spinBox->value());
+//                ingredientList.append(ing);
+//            }
+//        }
+//    }
 
     if ((!name.isNull()) && (ingredientList.size() != 0) && (!instructions.isNull()) && (time != 0))
     {
@@ -132,10 +141,10 @@ void AddRecipe::on_arConfirmAdd_clicked()
                 this->close();
             }
         }
+    } else {
+        Popup *incomplete = new Popup("Ok", "Please ensure all fields are filled out correctly.");
+        incomplete->setModal(true);
+        incomplete->exec();
+        delete incomplete;
     }
-    Popup *incomplete = new Popup("Ok", "Please ensure all fields are filled out correctly.");
-    incomplete->setModal(true);
-    incomplete->exec();
-    delete incomplete;
 }
-

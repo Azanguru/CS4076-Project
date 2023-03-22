@@ -45,6 +45,9 @@ private:
     QVector<Ingredient*> ingredientList;
     double time;
     bool starred = false;
+
+    void ingredientSelected(int index, int counter);
+    void ingredientAmountChanged(double value, int counter);
 };
 
 #endif // ADDRECIPE_H

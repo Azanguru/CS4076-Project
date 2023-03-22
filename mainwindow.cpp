@@ -122,17 +122,17 @@ void MainWindow::csvWrite()
         int size = allRecipes->size();
         for (int i = 0; i < size; i++)
         {
-            int numberOfIngredients = allRecipes->takeAt(i)->getIngredientList().size();
-            out << allRecipes->takeAt(i)->getName() << ",";
-            out << allRecipes->takeAt(i)->getCuisine() << ",";
-            out << allRecipes->takeAt(i)->getInstructions() << ",";
-            out << allRecipes->takeAt(i)->getTotalCalories() << ",";
-            out << allRecipes->takeAt(i)->getTime() << ",";
-            out << (int)(allRecipes->takeAt(i)->getStarred()) << ",";
+            int numberOfIngredients = allRecipes->at(i)->getIngredientList().size();
+            out << allRecipes->at(i)->getName() << ",";
+            out << allRecipes->at(i)->getCuisine() << ",";
+            out << allRecipes->at(i)->getInstructions() << ",";
+            out << allRecipes->at(i)->getTotalCalories() << ",";
+            out << allRecipes->at(i)->getTime() << ",";
+            out << (int)(allRecipes->at(i)->getStarred()) << ",";
             out << numberOfIngredients << ",";
             for (int j = 0; j < numberOfIngredients; j++)
             {
-                out << allRecipes->takeAt(i)->getIngredientList()[j] << ",";
+                out << allRecipes->at(i)->getIngredientList()[j] << ",";
             }
             out << "\n";
         }
