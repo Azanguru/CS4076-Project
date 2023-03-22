@@ -84,6 +84,8 @@ void AddRecipe::on_arTimeEnter_valueChanged(int arg1)
 
 void AddRecipe::on_arConfirmAdd_clicked()
 {
+    instructions = ui->arInstrEnter->toPlainText();
+
     QList<QHBoxLayout*> listOfChildren = ui->arIngVBox->findChildren<QHBoxLayout*>();
     foreach (QHBoxLayout *hbox, listOfChildren)
     {

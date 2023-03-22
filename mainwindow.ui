@@ -24,7 +24,7 @@
      </rect>
     </property>
     <property name="currentIndex">
-     <number>0</number>
+     <number>3</number>
     </property>
     <widget class="QWidget" name="mainMenu">
      <widget class="QPushButton" name="viewIngredientsButton">
@@ -136,61 +136,16 @@
          <height>519</height>
         </rect>
        </property>
-       <widget class="QWidget" name="horizontalLayoutWidget">
+       <widget class="QWidget" name="gridLayoutWidget">
         <property name="geometry">
          <rect>
-          <x>10</x>
-          <y>10</y>
-          <width>741</width>
-          <height>51</height>
+          <x>-1</x>
+          <y>-1</y>
+          <width>801</width>
+          <height>521</height>
          </rect>
         </property>
-        <layout class="QHBoxLayout" name="horizontalLayout">
-         <item>
-          <widget class="QLabel" name="ingName">
-           <property name="font">
-            <font>
-             <pointsize>12</pointsize>
-            </font>
-           </property>
-           <property name="text">
-            <string>TextLabel</string>
-           </property>
-           <property name="indent">
-            <number>5</number>
-           </property>
-          </widget>
-         </item>
-         <item>
-          <widget class="QLabel" name="ingCals">
-           <property name="font">
-            <font>
-             <pointsize>12</pointsize>
-            </font>
-           </property>
-           <property name="text">
-            <string>TextLabel</string>
-           </property>
-           <property name="indent">
-            <number>5</number>
-           </property>
-          </widget>
-         </item>
-         <item alignment="Qt::AlignRight|Qt::AlignVCenter">
-          <widget class="QPushButton" name="ingEdit">
-           <property name="text">
-            <string>PushButton</string>
-           </property>
-          </widget>
-         </item>
-         <item alignment="Qt::AlignHCenter|Qt::AlignVCenter">
-          <widget class="QPushButton" name="ingDelete">
-           <property name="text">
-            <string>PushButton</string>
-           </property>
-          </widget>
-         </item>
-        </layout>
+        <layout class="QGridLayout" name="ingGrid"/>
        </widget>
       </widget>
      </widget>

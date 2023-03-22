@@ -9,6 +9,7 @@
 #include <QVector>
 #include <QFile>
 #include <QPushButton>
+#include <QLabel>
 
 using namespace std;
 
@@ -142,11 +143,36 @@ void MainWindow::csvWrite()
 void MainWindow::on_viewIngredientsButton_clicked()
 {
         ui->pages->setCurrentIndex(3);
+
+        int size = allIngredients->size();
+        for (int i = 0; i < size; i++)
+        {
+            QLabel *name = new QLabel(allIngredients->at(i)->getName());
+            int cals = allIngredients->at(i)->getCaloricValue() * 100;
+            QLabel *calories = new QLabel("Calories per 100g/ml: " + QString::number(cals));
+            QPushButton *editIngredient = new QPushButton("Edit");
+            QPushButton *deleteIngredient = new QPushButton("Delete");
+
+
+
+            ui->ingGrid->addWidget(name, i, 0);
+            ui->ingGrid->addWidget(calories, i, 1);
+            ui->ingGrid->addWidget(editIngredient, i, 2);
+            ui->ingGrid->addWidget(deleteIngredient, i, 3);
+
+            ui->scrollAreaWidgetContents->setLayout(ui->ingGrid);
+        }
 }
 
 void MainWindow::on_viBack_clicked()
 {
         ui->pages->setCurrentIndex(0);
+        while (QLayoutItem* item = ui->ingGrid->takeAt(0))
+        {
+            QWidget* widget;
+            if (widget = item->widget()) { delete widget; }
+            delete item;
+        }
 }
 
 void MainWindow::on_addRecipeButton_clicked()
