@@ -40,7 +40,9 @@ AddRecipe::AddRecipe(QVector<Recipe*> *allRecipes, QVector<Ingredient*> *allIngr
     ui->arTimeEnter->setValue(editRec->getTime());
     if (editRec->getStarred()) { this->on_arFavourite_clicked(); }
     int size = editRec->getIngredientList().size();
-    ui->arInstrEnter->setPlainText(editRec->getInstructions().replace("//nl", "\n"));
+    QString inst = editRec->getInstructions().replace("//nl", "\n");
+    inst.replace("£", ",");
+    ui->arInstrEnter->setPlainText(inst);
 }
 
 AddRecipe::~AddRecipe()
@@ -120,6 +122,7 @@ void AddRecipe::on_arConfirmAdd_clicked()
 {
     instructions = ui->arInstrEnter->toPlainText();
     instructions.replace("\n", "//nl");
+    instructions.replace(",", "£");
 
     if ((!name.isNull()) && (ingredientList.size() != 0) && (!instructions.isNull()) && (time != 0))
     {
@@ -127,7 +130,7 @@ void AddRecipe::on_arConfirmAdd_clicked()
         int size = allRecipes->size();
         for (int i = 0; i < size; i++)
         {
-            if (name.toUpper() == (*allRecipes)[i]->getName().toUpper()) {
+            if ((!editing) && (name.toUpper() == (*allRecipes)[i]->getName().toUpper())) {
                 found = true;
 
                 Popup *exists = new Popup("Ok", "Recipe already exists with that name");

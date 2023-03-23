@@ -42,7 +42,7 @@ QTextStream & operator<<(QTextStream &textStream, Recipe *recipe)
     textStream << numberOfIngredients << ",";
     for (int j = 0; j < numberOfIngredients; j++)
     {
-        textStream << recipe->getIngredientList()[j] << ",";
+        textStream << recipe->getIngredientList()[j];
     }
 
     return textStream;
