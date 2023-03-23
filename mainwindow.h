@@ -40,6 +40,8 @@ private slots:
 
     void on_actionExit_triggered();
 
+    void on_viewRecipesButton_clicked();
+
 private:
     Ui::MainWindow *ui;
     QVector<Ingredient*> *allIngredients = new QVector<Ingredient*>;
@@ -50,5 +52,6 @@ private:
     void processIngredient(QString line);
     void processRecipe(QString line);
     void viewIngredientsButtonPressed(int row, bool val);
+    void viewRecipesButtonPressed(int row, int val);
 };
 #endif // MAINWINDOW_H

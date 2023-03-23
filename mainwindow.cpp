@@ -232,3 +232,44 @@ void MainWindow::on_actionExit_triggered()
     }
 }
 
+
+void MainWindow::on_viewRecipesButton_clicked()
+{
+    ui->pages->setCurrentIndex(3);
+
+    int size = allRecipes->size();
+    for (int i = 0; i < size; i++)
+    {
+        QLabel *name = new QLabel(allRecipes->at(i)->getName());
+        QLabel *cuisine = new QLabel(allRecipes->at(i)->getCuisine());
+        int cals = allRecipes->at(i)->getTotalCalories();
+        QLabel *calories = new QLabel("Calories: " + QString::number(cals));
+        int mins = allRecipes->at(i)->getTime();
+        QLabel *time = new QLabel(QString::number(mins) + " mins");
+        QPushButton *viewRecipe = new QPushButton("View");
+        QPushButton *editRecipe = new QPushButton("Edit");
+        QPushButton *deleteRecipe = new QPushButton("Delete");
+
+        name->setStyleSheet("font-weight: bold");
+        name->setIndent(5);
+        name->setSizePolicy(QSizePolicy::MinimumExpanding, QSizePolicy::Fixed);
+
+        connect(viewRecipe, &QPushButton::clicked, [=](){ viewRecipesButtonPressed(i, 0); } );
+        connect(editRecipe, &QPushButton::clicked, [=](){ viewRecipesButtonPressed(i, 1); } );
+        connect(deleteRecipe, &QPushButton::clicked, [=](){ viewRecipesButtonPressed(i, 2); } );
+        ui->recGrid->addWidget(name, i, 0);
+        ui->recGrid->addWidget(cuisine, i, 1);
+        ui->recGrid->addWidget(calories, i, 2);
+        ui->recGrid->addWidget(time, i, 3);
+        ui->recGrid->addWidget(viewRecipe, i, 4);
+        ui->recGrid->addWidget(editRecipe, i, 5);
+        ui->recGrid->addWidget(deleteRecipe, i, 6);
+
+        ui->scrollAreaWidgetContents->setLayout(ui->recGrid);
+    }
+}
+
+void MainWindow::viewRecipesButtonPressed(int row, int val)
+{
+
+}

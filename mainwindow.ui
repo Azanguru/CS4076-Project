@@ -36,7 +36,7 @@
      </rect>
     </property>
     <property name="currentIndex">
-     <number>3</number>
+     <number>1</number>
     </property>
     <widget class="QWidget" name="mainMenu">
      <widget class="QPushButton" name="viewIngredientsButton">
@@ -118,7 +118,60 @@
       </property>
      </widget>
     </widget>
-    <widget class="QWidget" name="viewRecipes"/>
+    <widget class="QWidget" name="viewRecipes">
+     <widget class="QScrollArea" name="vrScroll">
+      <property name="geometry">
+       <rect>
+        <x>0</x>
+        <y>0</y>
+        <width>801</width>
+        <height>501</height>
+       </rect>
+      </property>
+      <property name="widgetResizable">
+       <bool>true</bool>
+      </property>
+      <widget class="QWidget" name="scrollAreaWidgetContents_2">
+       <property name="geometry">
+        <rect>
+         <x>0</x>
+         <y>0</y>
+         <width>799</width>
+         <height>499</height>
+        </rect>
+       </property>
+       <widget class="QWidget" name="gridLayoutWidget_2">
+        <property name="geometry">
+         <rect>
+          <x>-1</x>
+          <y>-1</y>
+          <width>801</width>
+          <height>501</height>
+         </rect>
+        </property>
+        <layout class="QGridLayout" name="recGrid"/>
+       </widget>
+      </widget>
+     </widget>
+     <widget class="QPushButton" name="vrBack">
+      <property name="geometry">
+       <rect>
+        <x>10</x>
+        <y>510</y>
+        <width>111</width>
+        <height>41</height>
+       </rect>
+      </property>
+      <property name="font">
+       <font>
+        <pointsize>14</pointsize>
+       </font>
+      </property>
+      <property name="text">
+       <string>Back</string>
+      </property>
+     </widget>
+    </widget>
     <widget class="QWidget" name="filterSearch"/>
     <widget class="QWidget" name="viewIngredients">
      <property name="sizePolicy">
