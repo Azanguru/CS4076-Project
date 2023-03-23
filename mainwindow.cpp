@@ -95,7 +95,7 @@ void MainWindow::processRecipe(QString line)
         ingredientList.append(in);
         i++;
     }
-    Recipe *r = new Recipe(list.at(0), ingredientList, list.at(2), list.at(3).toDouble(), list.at(4).toDouble(), list.at(1), list.at(5).toInt());
+    Recipe *r = new Recipe(list.at(0), ingredientList, list.at(2), list.at(3).toDouble(), list.at(4).toInt(), list.at(1), list.at(5).toInt());
     allRecipes->append(r);
 }
 
@@ -169,6 +169,8 @@ void MainWindow::viewIngredientsButtonPressed(int row, bool val)
         popup.exec();
         if (popupReturn) { allIngredients->removeAt(row); }
     }
+    this->on_viBack_clicked();
+    this->on_viewIngredientsButton_clicked();
 }
 
 void MainWindow::on_viBack_clicked()
@@ -241,11 +243,11 @@ void MainWindow::on_viewRecipesButton_clicked()
     for (int i = 0; i < size; i++)
     {
         QLabel *name = new QLabel(allRecipes->at(i)->getName());
-        QLabel *cuisine = new QLabel(allRecipes->at(i)->getCuisine());
+        QLabel *cuisine = new QLabel("Cuisine: " + allRecipes->at(i)->getCuisine());
         int cals = allRecipes->at(i)->getTotalCalories();
         QLabel *calories = new QLabel("Calories: " + QString::number(cals));
         int mins = allRecipes->at(i)->getTime();
-        QLabel *time = new QLabel(QString::number(mins) + " mins");
+        QLabel *time = new QLabel("Time to make: " + QString::number(mins) + " mins");
         QPushButton *viewRecipe = new QPushButton("View");
         QPushButton *editRecipe = new QPushButton("Edit");
         QPushButton *deleteRecipe = new QPushButton("Delete");
@@ -253,6 +255,9 @@ void MainWindow::on_viewRecipesButton_clicked()
         name->setStyleSheet("font-weight: bold");
         name->setIndent(5);
         name->setSizePolicy(QSizePolicy::MinimumExpanding, QSizePolicy::Fixed);
+        cuisine->setSizePolicy(QSizePolicy::MinimumExpanding, QSizePolicy::Fixed);
+        calories->setSizePolicy(QSizePolicy::MinimumExpanding, QSizePolicy::Fixed);
+        time->setSizePolicy(QSizePolicy::MinimumExpanding, QSizePolicy::Fixed);
 
         connect(viewRecipe, &QPushButton::clicked, [=](){ viewRecipesButtonPressed(i, 0); } );
         connect(editRecipe, &QPushButton::clicked, [=](){ viewRecipesButtonPressed(i, 1); } );
@@ -271,5 +276,42 @@ void MainWindow::on_viewRecipesButton_clicked()
 
 void MainWindow::viewRecipesButtonPressed(int row, int val)
 {
-
+    switch (val)
+    {
+    case 0:
+    {
+        break;
+    }
+    case 1:
+    {
+        AddRecipe addRecipe = AddRecipe(allRecipes, allIngredients, allRecipes->at(row), true, row);
+        addRecipe.setModal(true);
+        addRecipe.exec();
+        this->on_vrBack_clicked();
+        this->on_viewRecipesButton_clicked();
+        break;
+    }
+    case 2:
+    {
+        Popup popup = Popup("Cancel", "Confirm", "Are you sure you want to delete this recipe?");
+        popup.setModal(true);
+        popup.exec();
+        if (popupReturn) { allRecipes->removeAt(row); }
+        this->on_vrBack_clicked();
+        this->on_viewRecipesButton_clicked();
+        break;
+    }
+    }
 }
+
+void MainWindow::on_vrBack_clicked()
+{
+    ui->pages->setCurrentIndex(0);
+    while (QLayoutItem* item = ui->recGrid->takeAt(0))
+    {
+        QWidget* widget;
+        if (widget = item->widget()) { delete widget; }
+        delete item;
+    }
+}
+

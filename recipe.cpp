@@ -1,13 +1,14 @@
 #include "recipe.h"
 #include "ingredient.h"
 
+// Constructors
 Recipe::Recipe(QObject *parent)
     : QObject{parent}
 {
 
 }
 
-Recipe::Recipe(QString name, QVector<Ingredient*> ingredientList, QString instructions, double totalCalories, double time, QString cuisine,
+Recipe::Recipe(QString name, QVector<Ingredient*> ingredientList, QString instructions, double totalCalories, int time, QString cuisine,
                bool starred = false)
 {
     this->name = name;
@@ -19,37 +20,14 @@ Recipe::Recipe(QString name, QVector<Ingredient*> ingredientList, QString instru
     this->starred = starred;
 }
 
-Recipe::Recipe(QString name, QVector<Ingredient*> ingredientList, QString instructions, double time, QString cuisine, bool starred)
+Recipe::Recipe(QString name, QVector<Ingredient*> ingredientList, QString instructions, int time, QString cuisine, bool starred)
+    : Recipe(name, ingredientList, instructions, 0, time, cuisine, starred)
 {
-//    this->name = name;
-//    this->cuisine = cuisine;
-//    this->instructions = instructions;
-//    this->ingredientList = ingredientList;
-//    this->time = time;
     totalCalories = calorieCalc();
-    Recipe(name, ingredientList, instructions, totalCalories, time, cuisine, starred);
 }
 
-// Constructors
-Recipe::Recipe(QString name, QVector<Ingredient*> ingredientList, QString instructions, double time, bool starred)
-{
-    Recipe(name, ingredientList, instructions, time, "Unspecified", starred);
-}
-
-Recipe::Recipe(QString name, QVector<Ingredient*> ingredientList, QString instructions)
-{
-    Recipe(name, ingredientList, instructions, 0, "Unspecified");
-}
-
-Recipe::Recipe(QString name, QVector<Ingredient*> ingredientList, double time)
-{
-    Recipe(name, ingredientList, "", time, "Unspecified");
-}
-
-Recipe::Recipe(QString name, QVector<Ingredient*> ingredientList)
-{
-    Recipe(name, ingredientList, "", 0, "Unspecified");
-}
+Recipe::Recipe(QString name, QVector<Ingredient*> ingredientList, QString instructions, int time, bool starred)
+    : Recipe(name, ingredientList, instructions, time, "Unspecified", starred) {}
 
 //Overloaded Operators
 QTextStream & operator<<(QTextStream &textStream, Recipe *recipe)
@@ -99,7 +77,7 @@ QVector<Ingredient*> Recipe::getIngredientList() const { return ingredientList; 
 
 double Recipe::getTotalCalories() const { return totalCalories; }
 
-double Recipe::getTime() const { return time; }
+int Recipe::getTime() const { return time; }
 
 bool Recipe::getStarred() const { return starred; }
 
@@ -111,7 +89,7 @@ void Recipe::setInstructions(QString instructions) { this->instructions = instru
 
 void Recipe::setIngredientList(QVector<Ingredient*> ingredientList) { this->ingredientList = ingredientList; }
 
-void Recipe::setTime(double time) { this->time = time; }
+void Recipe::setTime(int time) { this->time = time; }
 
 void Recipe::setStarred(bool starred) { this->starred = starred; }
 

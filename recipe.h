@@ -14,19 +14,16 @@ private:
     QString instructions;
     QVector<Ingredient*> ingredientList;
     double totalCalories;
-    double time;
+    int time;
     bool starred;
 
     double calorieCalc();
 
 public:
     explicit Recipe(QObject *parent = nullptr);
-    Recipe(QString name, QVector<Ingredient*>, QString instructions, double totalCalories, double time, QString cuisine, bool starred);
-    Recipe(QString name, QVector<Ingredient*>, QString instructions, double time, QString cuisine, bool starred);
-    Recipe(QString name, QVector<Ingredient*>, QString instructions, double time, bool starred);
-    Recipe(QString name, QVector<Ingredient*>, QString instructions);
-    Recipe(QString name, QVector<Ingredient*>, double time);
-    Recipe(QString name, QVector<Ingredient*>);
+    Recipe(QString name, QVector<Ingredient*> ingredientList, QString instructions, double totalCalories, int time, QString cuisine, bool starred);
+    Recipe(QString name, QVector<Ingredient*> ingredientList, QString instructions, int time, QString cuisine, bool starred);
+    Recipe(QString name, QVector<Ingredient*> ingredientList, QString instructions, int time, bool starred);
 
     friend QTextStream & operator<<(QTextStream &textStream, Recipe *recipe);
     friend QTextStream & operator<<(QTextStream &textStream, Recipe &recipe);
@@ -35,7 +32,7 @@ public:
     void setCuisine(QString cuisine);
     void setIngredientList(QVector<Ingredient*>);
     void setTotalCalories(double totalCalories);
-    void setTime(double time);
+    void setTime(int time);
     void setInstructions(QString instructions);
     void setStarred(bool starred);
 
@@ -44,7 +41,7 @@ public:
     QString getInstructions() const;
     QVector<Ingredient*> getIngredientList() const;
     double getTotalCalories() const;
-    double getTime() const;
+    int getTime() const;
     bool getStarred() const;
 
 signals:

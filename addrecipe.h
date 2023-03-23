@@ -16,7 +16,13 @@ class AddRecipe : public QDialog
 public:
     explicit AddRecipe(QWidget *parent = nullptr);
     AddRecipe(QVector<Recipe*> *allRecipes, QVector <Ingredient*> *allIngredients);
+    AddRecipe(QVector<Recipe*> *allRecipes, QVector <Ingredient*> *allIngredients, Recipe* editRec, bool editing, int pos);
     ~AddRecipe();
+
+public slots:
+    void ingredientSelected(int);
+
+    void ingredientAmountChanged(double);
 
 private slots:
 
@@ -38,16 +44,15 @@ private:
     Ui::AddRecipe *ui;
     QVector<Recipe*> *allRecipes;
     QVector<Ingredient*> *allIngredients;
-    //QVector<QComboBox> boxes;
     QString name;
     QString cuisine;
     QString instructions;
     QVector<Ingredient*> ingredientList;
-    double time;
+    int time;
     bool starred = false;
-
-    void ingredientSelected(int index, int counter);
-    void ingredientAmountChanged(double value, int counter);
+    Recipe *editRec;
+    bool editing = false;
+    int pos;
 };
 
 #endif // ADDRECIPE_H
