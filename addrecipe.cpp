@@ -166,7 +166,7 @@ void AddRecipe::on_arConfirmAdd_clicked()
 
                 this->close();
             }
-        } else if (found) {
+        } else if (found && editing) {
             Recipe *r = new Recipe(name, ingredientList, instructions, time, cuisine, starred);
             allRecipes->replace(pos, r);
 

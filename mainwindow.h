@@ -44,6 +44,8 @@ private slots:
 
     void on_vrBack_clicked();
 
+    void on_vrBack_2_clicked();
+
 private:
     Ui::MainWindow *ui;
     QVector<Ingredient*> *allIngredients = new QVector<Ingredient*>;

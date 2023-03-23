@@ -42,7 +42,7 @@ QTextStream & operator<<(QTextStream &textStream, Recipe *recipe)
     textStream << numberOfIngredients << ",";
     for (int j = 0; j < numberOfIngredients; j++)
     {
-        textStream << recipe->getIngredientList()[j];
+        textStream << recipe->getIngredientList().at(j);
     }
 
     return textStream;
@@ -60,7 +60,7 @@ QTextStream & operator<<(QTextStream &textStream, Recipe &recipe)
     textStream << numberOfIngredients << ",";
     for (int j = 0; j < numberOfIngredients; j++)
     {
-        textStream << recipe.getIngredientList()[j] << ",";
+        textStream << recipe.getIngredientList().at(j) << ",";
     }
 
     return textStream;
@@ -93,6 +93,7 @@ void Recipe::setTime(int time) { this->time = time; }
 
 void Recipe::setStarred(bool starred) { this->starred = starred; }
 
+void Recipe::resetCalories() { totalCalories = calorieCalc(); }
 
 double Recipe::calorieCalc() // Private method to calculate the amount of calories in a recipe according to the ingredients
 {

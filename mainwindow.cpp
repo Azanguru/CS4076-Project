@@ -86,16 +86,18 @@ void MainWindow::processIngredient(QString line)
 void MainWindow::processRecipe(QString line)
 {
     QStringList list = line.split(",");
-    QVector<Ingredient*> ingredientList;
+    QVector<Ingredient*> ingredients;
     int numberOfIngredients = list.at(6).toInt();
     int i = 0, j = 6;
     while (i < numberOfIngredients)
     {
-        Ingredient *in = new Ingredient(list.at(j++), 100*list.at(j++).toDouble(), list.at(j++).toDouble(), list.at(j++).toInt());
-        ingredientList.append(in);
+        Ingredient *in = new Ingredient(QString(list.at(j+1)), 100*list.at(j+2).toDouble(), list.at(j+3).toDouble(), list.at(j+4).toInt());
+        ingredients.append(in);
         i++;
+        j += 4;
     }
-    Recipe *r = new Recipe(list.at(0), ingredientList, list.at(2), list.at(3).toDouble(), list.at(4).toInt(), list.at(1), list.at(5).toInt());
+    Recipe *r = new Recipe(list.at(0), ingredients, list.at(2), list.at(3).toDouble(), list.at(4).toInt(), list.at(1), list.at(5).toInt());
+    r->resetCalories();
     allRecipes->append(r);
 }
 
@@ -237,7 +239,7 @@ void MainWindow::on_actionExit_triggered()
 
 void MainWindow::on_viewRecipesButton_clicked()
 {
-    ui->pages->setCurrentIndex(3);
+    ui->pages->setCurrentIndex(1);
 
     int size = allRecipes->size();
     for (int i = 0; i < size; i++)
@@ -270,7 +272,7 @@ void MainWindow::on_viewRecipesButton_clicked()
         ui->recGrid->addWidget(editRecipe, i, 5);
         ui->recGrid->addWidget(deleteRecipe, i, 6);
 
-        ui->scrollAreaWidgetContents->setLayout(ui->recGrid);
+        ui->scrollAreaWidgetContents_2->setLayout(ui->recGrid);
     }
 }
 
@@ -280,6 +282,29 @@ void MainWindow::viewRecipesButtonPressed(int row, int val)
     {
     case 0:
     {
+        Recipe* thisRecipe = allRecipes->at(row);
+        ui->pages->setCurrentIndex(4);
+        ui->vrRecipeLabel->setText(thisRecipe->getName());
+        ui->vrCuisineLabel->setText("Cuisine: " + thisRecipe->getCuisine());
+        ui->vrTimeLabel->setText("Time to make: " + QString::number(thisRecipe->getTime()) + " mins");
+        ui->vrCalsLabel->setText("Calories: " + QString::number(thisRecipe->getTotalCalories()));
+        QString inst = thisRecipe->getInstructions().replace("//nl", "\n");
+        inst.replace("£", ",");
+        ui->vrInstrTextEdit->setPlainText(inst);
+        int size = thisRecipe->getIngredientList().size();
+        for (int i = 0; i < size; i++)
+        {
+            Ingredient *current = thisRecipe->getIngredientList().at(i);
+            QLabel *ingName = new QLabel(current->getName());
+            QLabel *ingAmount;
+            ingName->setSizePolicy(QSizePolicy::MinimumExpanding, QSizePolicy::Fixed);
+            ingName->setIndent(5);
+            if (current->measuredInGrams()) { ingAmount = new QLabel(QString::number(current->getAmount()) + "g  "); }
+            else { ingAmount = new QLabel(QString::number(current->getAmount()) + "ml  "); }
+            ui->vrGrid->addWidget(ingName, i, 0);
+            ui->vrGrid->addWidget(ingAmount, i, 1);
+            ui->scrollAreaWidgetContents_3->setLayout(ui->vrGrid);
+        }
         break;
     }
     case 1:
@@ -308,6 +333,18 @@ void MainWindow::on_vrBack_clicked()
 {
     ui->pages->setCurrentIndex(0);
     while (QLayoutItem* item = ui->recGrid->takeAt(0))
+    {
+        QWidget* widget;
+        if (widget = item->widget()) { delete widget; }
+        delete item;
+    }
+}
+
+
+void MainWindow::on_vrBack_2_clicked()
+{
+    ui->pages->setCurrentIndex(1);
+    while (QLayoutItem* item = ui->vrGrid->takeAt(0))
     {
         QWidget* widget;
         if (widget = item->widget()) { delete widget; }

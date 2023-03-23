@@ -35,6 +35,7 @@ public:
     void setTime(int time);
     void setInstructions(QString instructions);
     void setStarred(bool starred);
+    void resetCalories();
 
     QString getName() const;
     QString getCuisine() const;
