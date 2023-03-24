@@ -235,6 +235,7 @@ void MainWindow::on_actionExit_triggered()
 void MainWindow::on_viewRecipesButton_clicked()
 {
     ui->pages->setCurrentIndex(1);
+    ui->vrViewStarred->setChecked(false);
     displayRecipes(allRecipes);
 }
 
@@ -260,9 +261,9 @@ void MainWindow::displayRecipes(QVector<Recipe*> *recipes) // maybe use template
         calories->setSizePolicy(QSizePolicy::MinimumExpanding, QSizePolicy::Fixed);
         time->setSizePolicy(QSizePolicy::MinimumExpanding, QSizePolicy::Fixed);
 
-        connect(viewRecipe, &QPushButton::clicked, [=](){ viewRecipesButtonPressed(i, 0); } );
-        connect(editRecipe, &QPushButton::clicked, [=](){ viewRecipesButtonPressed(i, 1); } );
-        connect(deleteRecipe, &QPushButton::clicked, [=](){ viewRecipesButtonPressed(i, 2); } );
+        connect(viewRecipe, &QPushButton::clicked, [=](){ viewRecipesButtonPressed(i, 0, recipes); } );
+        connect(editRecipe, &QPushButton::clicked, [=](){ viewRecipesButtonPressed(i, 1, recipes); } );
+        connect(deleteRecipe, &QPushButton::clicked, [=](){ viewRecipesButtonPressed(i, 2, recipes); } );
         ui->recGrid->addWidget(name, i, 0);
         ui->recGrid->addWidget(cuisine, i, 1);
         ui->recGrid->addWidget(calories, i, 2);
@@ -275,13 +276,18 @@ void MainWindow::displayRecipes(QVector<Recipe*> *recipes) // maybe use template
     }
 }
 
-void MainWindow::viewRecipesButtonPressed(int row, int val)
+void MainWindow::viewRecipesButtonPressed(int row, int val, QVector<Recipe*> *recipes)
 {
+    int pos;
+    for (int i = 0; i < allRecipes->size(); i++)
+    {
+        if (allRecipes->at(i) == recipes->at(row)) { pos = i; }
+    }
     switch (val)
     {
     case 0:
     {
-        Recipe* thisRecipe = allRecipes->at(row);
+        Recipe* thisRecipe = recipes->at(row);
         ui->pages->setCurrentIndex(4);
         ui->vrRecipeLabel->setText(thisRecipe->getName());
         ui->vrCuisineLabel->setText("Cuisine: " + thisRecipe->getCuisine());
@@ -314,7 +320,7 @@ void MainWindow::viewRecipesButtonPressed(int row, int val)
     }
     case 1:
     {
-        AddRecipe addRecipe = AddRecipe(allRecipes, allIngredients, allRecipes->at(row), true, row);
+        AddRecipe addRecipe = AddRecipe(allRecipes, allIngredients, recipes->at(row), true, pos);
         addRecipe.setModal(true);
         addRecipe.exec();
         this->on_vrBack_clicked();
@@ -326,7 +332,7 @@ void MainWindow::viewRecipesButtonPressed(int row, int val)
         Popup popup = Popup("Cancel", "Confirm", "Are you sure you want to delete this recipe?");
         popup.setModal(true);
         popup.exec();
-        if (popupReturn) { allRecipes->removeAt(row); }
+        if (popupReturn) { allRecipes->removeAt(pos); }
         this->on_vrBack_clicked();
         this->on_viewRecipesButton_clicked();
         break;
@@ -344,6 +350,7 @@ void MainWindow::on_vrBack_clicked()
 void MainWindow::on_vrBack_2_clicked()
 {
     ui->pages->setCurrentIndex(1);
+    ui->vrViewStarred->setChecked(false);
     deleteWidgetsFromLayout(ui->vrGrid);
 }
 

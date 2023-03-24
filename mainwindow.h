@@ -58,7 +58,7 @@ private:
     void processIngredient(QString line);
     void processRecipe(QString line);
     void viewIngredientsButtonPressed(int row, bool val);
-    void viewRecipesButtonPressed(int row, int val);
+    void viewRecipesButtonPressed(int row, int val, QVector<Recipe*> *recipes);
     void displayRecipes(QVector<Recipe*> *recipes);
     void deleteWidgetsFromLayout(QLayout *layout);
 };
