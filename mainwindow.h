@@ -46,6 +46,8 @@ private slots:
 
     void on_vrBack_2_clicked();
 
+    void on_vrViewStarred_stateChanged(int arg1);
+
 private:
     Ui::MainWindow *ui;
     QVector<Ingredient*> *allIngredients = new QVector<Ingredient*>;
@@ -57,5 +59,7 @@ private:
     void processRecipe(QString line);
     void viewIngredientsButtonPressed(int row, bool val);
     void viewRecipesButtonPressed(int row, int val);
+    void displayRecipes(QVector<Recipe*> *recipes);
+    void deleteWidgetsFromLayout(QLayout *layout);
 };
 #endif // MAINWINDOW_H

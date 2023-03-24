@@ -36,7 +36,7 @@
      </rect>
     </property>
     <property name="currentIndex">
-     <number>4</number>
+     <number>1</number>
     </property>
     <widget class="QWidget" name="mainMenu">
      <widget class="QPushButton" name="viewIngredientsButton">
@@ -123,9 +123,9 @@
       <property name="geometry">
        <rect>
         <x>0</x>
-        <y>0</y>
+        <y>40</y>
         <width>801</width>
-        <height>501</height>
+        <height>461</height>
        </rect>
       </property>
       <property name="widgetResizable">
@@ -137,7 +137,7 @@
          <x>0</x>
          <y>0</y>
          <width>799</width>
-         <height>499</height>
+         <height>459</height>
         </rect>
        </property>
        <widget class="QWidget" name="gridLayoutWidget_2">
@@ -169,6 +169,24 @@
       </property>
       <property name="text">
        <string>Back</string>
+      </property>
+     </widget>
+     <widget class="QCheckBox" name="vrViewStarred">
+      <property name="geometry">
+       <rect>
+        <x>587</x>
+        <y>10</y>
+        <width>181</width>
+        <height>20</height>
+       </rect>
+      </property>
+      <property name="font">
+       <font>
+        <italic>true</italic>
+       </font>
+      </property>
+      <property name="text">
+       <string>View starred recipes only</string>
       </property>
      </widget>
     </widget>

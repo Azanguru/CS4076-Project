@@ -177,13 +177,8 @@ void MainWindow::viewIngredientsButtonPressed(int row, bool val)
 
 void MainWindow::on_viBack_clicked()
 {
-        ui->pages->setCurrentIndex(0);
-        while (QLayoutItem* item = ui->ingGrid->takeAt(0))
-        {
-            QWidget* widget;
-            if (widget = item->widget()) { delete widget; }
-            delete item;
-        }
+    ui->pages->setCurrentIndex(0);
+    deleteWidgetsFromLayout(ui->ingGrid);
 }
 
 void MainWindow::on_addRecipeButton_clicked()
@@ -240,15 +235,19 @@ void MainWindow::on_actionExit_triggered()
 void MainWindow::on_viewRecipesButton_clicked()
 {
     ui->pages->setCurrentIndex(1);
+    displayRecipes(allRecipes);
+}
 
-    int size = allRecipes->size();
+void MainWindow::displayRecipes(QVector<Recipe*> *recipes) // maybe use templates/arrays with pointers here??
+{
+    int size = recipes->size();
     for (int i = 0; i < size; i++)
     {
-        QLabel *name = new QLabel(allRecipes->at(i)->getName());
-        QLabel *cuisine = new QLabel("Cuisine: " + allRecipes->at(i)->getCuisine());
-        int cals = allRecipes->at(i)->getTotalCalories();
+        QLabel *name = new QLabel(recipes->at(i)->getName());
+        QLabel *cuisine = new QLabel("Cuisine: " + recipes->at(i)->getCuisine());
+        int cals = recipes->at(i)->getTotalCalories();
         QLabel *calories = new QLabel("Calories: " + QString::number(cals));
-        int mins = allRecipes->at(i)->getTime();
+        int mins = recipes->at(i)->getTime();
         QLabel *time = new QLabel("Time to make: " + QString::number(mins) + " mins");
         QPushButton *viewRecipe = new QPushButton("View");
         QPushButton *editRecipe = new QPushButton("Edit");
@@ -288,13 +287,19 @@ void MainWindow::viewRecipesButtonPressed(int row, int val)
         ui->vrCuisineLabel->setText("Cuisine: " + thisRecipe->getCuisine());
         ui->vrTimeLabel->setText("Time to make: " + QString::number(thisRecipe->getTime()) + " mins");
         ui->vrCalsLabel->setText("Calories: " + QString::number(thisRecipe->getTotalCalories()));
-        QString inst = thisRecipe->getInstructions().replace("//nl", "\n");
+        QString inst = "Instructions:\n" + thisRecipe->getInstructions().replace("//nl", "\n");
         inst.replace("£", ",");
         ui->vrInstrTextEdit->setPlainText(inst);
         int size = thisRecipe->getIngredientList().size();
-        for (int i = 0; i < size; i++)
+
+        QLabel *title = new QLabel("Ingredients:");
+        title->setIndent(5);
+        title->setSizePolicy(QSizePolicy::Fixed, QSizePolicy::Fixed);
+        title->setStyleSheet("font-weight: bold");
+        ui->vrGrid->addWidget(title, 0, 0);
+        for (int i = 1; i <= size; i++)
         {
-            Ingredient *current = thisRecipe->getIngredientList().at(i);
+            Ingredient *current = thisRecipe->getIngredientList().at(i-1);
             QLabel *ingName = new QLabel(current->getName());
             QLabel *ingAmount;
             ingName->setSizePolicy(QSizePolicy::MinimumExpanding, QSizePolicy::Fixed);
@@ -332,7 +337,19 @@ void MainWindow::viewRecipesButtonPressed(int row, int val)
 void MainWindow::on_vrBack_clicked()
 {
     ui->pages->setCurrentIndex(0);
-    while (QLayoutItem* item = ui->recGrid->takeAt(0))
+    deleteWidgetsFromLayout(ui->recGrid);
+}
+
+
+void MainWindow::on_vrBack_2_clicked()
+{
+    ui->pages->setCurrentIndex(1);
+    deleteWidgetsFromLayout(ui->vrGrid);
+}
+
+void MainWindow::deleteWidgetsFromLayout(QLayout *layout)
+{
+    while (QLayoutItem* item = layout->takeAt(0))
     {
         QWidget* widget;
         if (widget = item->widget()) { delete widget; }
@@ -340,15 +357,24 @@ void MainWindow::on_vrBack_clicked()
     }
 }
 
-
-void MainWindow::on_vrBack_2_clicked()
+void MainWindow::on_vrViewStarred_stateChanged(int arg1)
 {
-    ui->pages->setCurrentIndex(1);
-    while (QLayoutItem* item = ui->vrGrid->takeAt(0))
+    deleteWidgetsFromLayout(ui->recGrid);
+
+    if (ui->vrViewStarred->isChecked())
     {
-        QWidget* widget;
-        if (widget = item->widget()) { delete widget; }
-        delete item;
+        QVector<Recipe*> *starredRecipes = new QVector<Recipe*>();
+        int size = allRecipes->size();
+        for (int i = 0; i < size; i++)
+        {
+            if (allRecipes->at(i)->getStarred())
+            {
+                starredRecipes->append(allRecipes->at(i));
+            }
+        }
+        displayRecipes(starredRecipes);
+    } else {
+        displayRecipes(allRecipes);
     }
 }
 
