@@ -30,6 +30,8 @@ set(PROJECT_SOURCES
         addrecipe.ui
         addrecipe.h
         addrecipe.cpp
+        filtersearch.h
+        filtersearch.cpp
 )
 
 if(${QT_VERSION_MAJOR} GREATER_EQUAL 6)

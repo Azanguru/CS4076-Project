@@ -14,7 +14,8 @@ Ingredient::Ingredient(QString name, double calories, double amount, bool measur
     this->measureInGrams = measureInGrams;
 }
 
-Ingredient::Ingredient(const Ingredient& ing) : name(ing.name), caloricValue(ing.caloricValue), amount(ing.amount), measureInGrams(ing.measureInGrams) {}
+Ingredient::Ingredient(const Ingredient& ing)
+    : name(ing.name), caloricValue(ing.caloricValue), amount(ing.amount), measureInGrams(ing.measureInGrams) {}
 
 //Overloaded operators
 QTextStream & operator<<(QTextStream &textStream, Ingredient *ingredient)

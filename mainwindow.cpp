@@ -385,3 +385,24 @@ void MainWindow::on_vrViewStarred_stateChanged(int arg1)
     }
 }
 
+
+void MainWindow::on_filterSearchButton_clicked()
+{
+    ui->pages->setCurrentIndex(2);
+}
+
+
+void MainWindow::on_fsBack_clicked()
+{
+    ui->pages->setCurrentIndex(0);
+}
+
+
+void MainWindow::on_fsSearch_clicked()
+{
+
+    ui->pages->setCurrentIndex(1);
+    ui->vrViewStarred->setChecked(false);
+    //displayRecipes(selectedRecipes);
+}
+

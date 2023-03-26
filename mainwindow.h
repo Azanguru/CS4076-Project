@@ -6,6 +6,7 @@
 
 #include "ingredient.h"
 #include "recipe.h"
+#include "filtersearch.h"
 
 extern bool popupReturn;
 
@@ -20,6 +21,12 @@ class MainWindow : public QMainWindow
 public:
     MainWindow(QWidget *parent = nullptr);
     ~MainWindow();
+
+    //friend class FilterSearch<int>;
+    //friend class FilterSearch<double>;
+    //friend class NumericSearch<int>;
+    //friend class NumericSearch<double>;
+    //friend class StringSearch;
 
 private slots:
     void on_addIngredientButton_clicked();
@@ -47,6 +54,12 @@ private slots:
     void on_vrBack_2_clicked();
 
     void on_vrViewStarred_stateChanged(int arg1);
+
+    void on_filterSearchButton_clicked();
+
+    void on_fsBack_clicked();
+
+    void on_fsSearch_clicked();
 
 private:
     Ui::MainWindow *ui;
