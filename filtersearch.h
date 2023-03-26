@@ -8,29 +8,25 @@ class FilterSearch
 protected:
     QVector<Recipe*> *recipes;
 
-    static QVector<Recipe*> arrToVector(Recipe* arr[], int arrSize);
+    static QVector<Recipe*> *arrToVectorPtr(Recipe* arr[], int arrSize);
 
 public:
     FilterSearch(QVector<Recipe*> *recipes);
 
-    virtual QVector<Recipe*> search() = 0;
-    QVector<Recipe*> combineSearch();
+    virtual QVector<Recipe*> * search() = 0;
 };
 
 template <typename T>
 class SingleSearch : public FilterSearch
 {
 private:
-    T value;
-    T arr[];
-    int arrSize;
-
-    bool operator>=(QString const& obj1);
+    T limit;
+    QVector<T> vector;
 
 public:
-    SingleSearch(T value, T arr[], int arrSize, QVector<Recipe*> *recipes);
+    SingleSearch(T value, QVector<T> &vector, QVector<Recipe*> *recipes);
 
-    virtual QVector<Recipe*> search();
+    virtual QVector<Recipe*> * search();
 };
 
 class CombinedSearch : public FilterSearch
@@ -41,9 +37,9 @@ private:
     QString cuisineName;
 
 public:
-    CombinedSearch(QVector<Recipe*> *recipeList, QString cuisine, double limit1, int limit2);
+    CombinedSearch(QVector<Recipe*> *recipeList, QString cuisine, double climit, int tlimit);
 
-    virtual QVector<Recipe*> search();
+    virtual QVector<Recipe*> * search();
 };
 
 #endif // FILTERSEARCH_H

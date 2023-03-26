@@ -5,85 +5,66 @@ FilterSearch::FilterSearch(QVector<Recipe *> *recipes)
     this->recipes = recipes;
 }
 
-QVector<Recipe*> FilterSearch::arrToVector(Recipe *arr[], int arrSize)
+template <typename T>
+SingleSearch<T>::SingleSearch(T value, QVector<T> &vector, QVector<Recipe*> *recipes)
+    : FilterSearch(recipes)
 {
-    QVector<Recipe*> vector;
-    for (int i = 0; i < arrSize; i++)
-    {
-        if (!(arr[i] == nullptr))
-        {
-            vector.append(arr[i]);
-        } else {
-            i = arrSize;
-        }
-    }
-    return vector;
+    this->limit = value;
+    this->vector = vector;
 }
 
 template <typename T>
-SingleSearch<T>::SingleSearch(T value, T arr[], int arrSize, QVector<Recipe*> *recipes)
-    : FilterSearch::FilterSearch(recipes)
+QVector<Recipe*> * SingleSearch<T>::search()
 {
-    this->value = value;
-    this->arr = arr;
-    this->arrSize = arrSize;
-}
-
-template <typename T>
-QVector<Recipe*> SingleSearch<T>::search()
-{
-    int counter = 0;
-    Recipe* recipeArr[arrSize];
-
-    for (int i = 0; i < arrSize; i++)
-    {
-        if (value >= arr[i])
-        {
-            recipeArr[counter] = recipes->at(i);
-            counter++;
-        }
-    }
-
-    return arrToVector(recipeArr, arrSize);
-}
-
-template <typename T>
-bool SingleSearch<T>::operator>=(QString const& obj1)
-{
-    return  obj1 == value;
-}
-
-CombinedSearch::CombinedSearch(QVector<Recipe*> *recipeList, QString cuisine = "", double limit1 = 10000, int limit2 = 10000)
-    : FilterSearch::FilterSearch(recipeList)
-{
-    cuisineName = cuisine;
-    calLimit = limit1;
-    timeLimit = limit2;
-}
-
-QVector<Recipe*> CombinedSearch::search()
-{
-    int size = recipes->size();
-    int counter = 0;
-    Recipe* arr[size];
+    int size = vector.size();
+    QVector<Recipe*> *result = new QVector<Recipe*>;
 
     for (int i = 0; i < size; i++)
     {
-        if (cuisineName.isNull())
+        if (vector.at(i) <= limit)
         {
-            if ((recipes->at(i)->getCuisine() == cuisineName) && (timeLimit >= recipes->at(i)->getTime()) && (calLimit >= recipes->at(i)->getTime()))
+            result->append(recipes->at(i));
+        }
+    }
+
+    return result;
+}
+
+CombinedSearch::CombinedSearch(QVector<Recipe*> *recipeList, QString cuisine, double climit, int tlimit)
+    : FilterSearch(recipeList)
+{
+    cuisineName = cuisine;
+    if (climit == 0.0) { calLimit = 100000.0; }
+    else { calLimit = climit; }
+    if (tlimit == 0) { timeLimit = 300; }
+    else { timeLimit = tlimit; }
+}
+
+QVector<Recipe*> * CombinedSearch::search()
+{
+    int size = recipes->size();
+    QVector<Recipe*> *result = new QVector<Recipe*>;
+
+    for (int i = 0; i < size; i++)
+    {
+        if (cuisineName == "")
+        {
+            if ((timeLimit >= recipes->at(i)->getTime()) && (calLimit >= recipes->at(i)->getTotalCalories()))
             {
-                arr[counter] = recipes->at(i);
-                counter++;
+                result->append(recipes->at(i));
             }
+
         } else {
-            if ((timeLimit >= recipes->at(i)->getTime()) && (calLimit >= recipes->at(i)->getTime()))
+            if ((recipes->at(i)->getCuisine() == cuisineName) && (timeLimit >= recipes->at(i)->getTime())
+                    && (calLimit >= recipes->at(i)->getTotalCalories()))
             {
-                arr[counter] = recipes->at(i);
-                counter++;
+                result->append(recipes->at(i));
             }
         }
     }
 
-    return arrToVector(arr, size);
+    return result;
 }
+
+template class SingleSearch<double>;
+template class SingleSearch<int>;

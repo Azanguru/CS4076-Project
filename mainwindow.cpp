@@ -5,6 +5,7 @@
 #include "addrecipe.h"
 #include "recipe.h"
 #include "popup.h"
+#include "filtersearch.h"
 
 #include <QVector>
 #include <QFile>
@@ -194,12 +195,10 @@ void MainWindow::on_addRecipeButton_clicked()
     addRecipe.exec();
 }
 
-
 void MainWindow::on_actionSave_triggered()
 {
     this->csvWrite();
 }
-
 
 void MainWindow::on_actionDelete_triggered()
 {
@@ -217,13 +216,11 @@ void MainWindow::on_actionDelete_triggered()
     }
 }
 
-
 void MainWindow::on_actionSave_Exit_triggered()
 {
     csvWrite();
     this->close();
 }
-
 
 void MainWindow::on_actionExit_triggered()
 {
@@ -236,7 +233,6 @@ void MainWindow::on_actionExit_triggered()
         this->close();
     }
 }
-
 
 void MainWindow::on_viewRecipesButton_clicked()
 {
@@ -352,7 +348,6 @@ void MainWindow::on_vrBack_clicked()
     deleteWidgetsFromLayout(ui->recGrid);
 }
 
-
 void MainWindow::on_vrBack_2_clicked()
 {
     ui->pages->setCurrentIndex(1);
@@ -406,11 +401,34 @@ void MainWindow::on_fsBack_clicked()
 
 void MainWindow::on_fsSearch_clicked()
 {
-    //if ((!ui->fsCuisineLabel->text().isNull()) && (ui->fsCalorieSlider->value() == 0) && (ui->fsTimeEnter->value()))
+    QVector<Recipe*> *selectedRecipes;
 
-    //ui->pages->setCurrentIndex(1);
-    //ui->vrViewStarred->setChecked(false);
-    //displayRecipes(selectedRecipes);
+    if ((fsStruct.cuisineName == "") && (fsStruct.calLimit != 0) && (fsStruct.timeLimit == 0)) {
+        QVector<double> vector;
+        for (int i = 0; i < allRecipes->size(); i++)
+        {
+            vector.append(allRecipes->at(i)->getTotalCalories());
+        }
+        SingleSearch<double> ss = SingleSearch<double>(fsStruct.calLimit, vector, allRecipes);
+        selectedRecipes = ss.search();
+
+    } else if ((fsStruct.cuisineName == "") && (fsStruct.calLimit == 0) && (fsStruct.timeLimit != 0)) {
+        QVector<int> vector;
+        for (int i = 0; i < allRecipes->size(); i++)
+        {
+            vector.append(allRecipes->at(i)->getTime());
+        }
+        SingleSearch<int> ss = SingleSearch<int>(fsStruct.timeLimit, vector, allRecipes);
+        selectedRecipes = ss.search();
+
+    } else {
+        CombinedSearch cs = CombinedSearch(allRecipes, fsStruct.cuisineName, fsStruct.calLimit, fsStruct.timeLimit);
+        selectedRecipes = cs.search();
+    }
+
+    ui->pages->setCurrentIndex(1);
+    ui->vrViewStarred->setChecked(false);
+    displayRecipes(selectedRecipes);
 }
 
 void MainWindow::on_fsCuisineEnter_textChanged(const QString &arg1)
@@ -425,7 +443,7 @@ void MainWindow::on_fsTimeEnter_currentIndexChanged(int index)
 
 void MainWindow::on_fsCalorieSlider_valueChanged(int value)
 {
-    fsStruct.calLimit = value;
+    fsStruct.calLimit = (double)value;
     if (value != 0)
     {
         ui->fsCalorieDisplay->setText("Calorie Limit: " + QString::number(value));
@@ -433,4 +451,3 @@ void MainWindow::on_fsCalorieSlider_valueChanged(int value)
         ui->fsCalorieDisplay->setText("No Calorie Limit");
     }
 }
-

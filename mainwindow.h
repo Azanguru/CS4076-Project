@@ -22,12 +22,6 @@ public:
     MainWindow(QWidget *parent = nullptr);
     ~MainWindow();
 
-    //friend class FilterSearch<int>;
-    //friend class FilterSearch<double>;
-    //friend class NumericSearch<int>;
-    //friend class NumericSearch<double>;
-    //friend class StringSearch;
-
 private slots:
     void on_addIngredientButton_clicked();
 
