@@ -5,7 +5,10 @@
 #include "ingredient.h"
 #include "popup.h"
 
-static int count = 0;
+namespace counter
+{
+    static int count = 0;
+}
 
 AddRecipe::AddRecipe(QWidget *parent) :
     QDialog(parent),
@@ -21,7 +24,7 @@ AddRecipe::AddRecipe(QVector<Recipe*> *allRecipes, QVector<Ingredient*> *allIngr
     this->allIngredients = allIngredients;
     ui->setupUi(this);
     ui->arFavourite->setStyleSheet("background-color: rgb(255, 255, 255); color: rgb(128, 128, 128)");
-    count = 0;
+    counter::count = 0;
 }
 
 AddRecipe::AddRecipe(QVector<Recipe*> *allRecipes, QVector<Ingredient*> *allIngredients, Recipe *editRec, bool editing, int pos) :
@@ -31,7 +34,7 @@ AddRecipe::AddRecipe(QVector<Recipe*> *allRecipes, QVector<Ingredient*> *allIngr
     this->allIngredients = allIngredients;
     ui->setupUi(this);
     ui->arFavourite->setStyleSheet("background-color: rgb(255, 255, 255); color: rgb(128, 128, 128)");
-    count = 0;
+    counter::count = 0;
     this->editRec = editRec;
     this->editing = editing;
     this->pos = pos;
@@ -71,18 +74,20 @@ void AddRecipe::on_arIngAddSlot_clicked()
     QComboBox *combo = new QComboBox();
     QDoubleSpinBox *spin = new QDoubleSpinBox();
 
-    for (int i = 0; i < allIngredients->size(); ++i)
+    int count = 0;
+    while (count < allIngredients->size())
     {
-        combo->addItem(allIngredients->at(i)->getName());
+        combo->addItem(allIngredients->at(count)->getName());
+        count++;
     }
 
     combo->setSizePolicy(QSizePolicy::MinimumExpanding, QSizePolicy::Maximum);
     spin->setMaximum(9999);
-    combo->setObjectName(QString::number(count));
-    spin->setObjectName(QString::number(count));
+    combo->setObjectName(QString::number(counter::count));
+    spin->setObjectName(QString::number(counter::count));
     hbox->addWidget(combo);
     hbox->addWidget(spin);
-    count++;
+    counter::count++;
 
     connect(combo, SIGNAL(currentIndexChanged(int)), this, SLOT(ingredientSelected(int)));
     connect(spin, SIGNAL(valueChanged(double)), this, SLOT(ingredientAmountChanged(double)));
