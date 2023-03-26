@@ -346,6 +346,7 @@ void MainWindow::on_vrBack_clicked()
 {
     ui->pages->setCurrentIndex(0);
     deleteWidgetsFromLayout(ui->recGrid);
+    ui->vrViewStarred->setHidden(false);
 }
 
 void MainWindow::on_vrBack_2_clicked()
@@ -429,6 +430,7 @@ void MainWindow::on_fsSearch_clicked()
     ui->pages->setCurrentIndex(1);
     ui->vrViewStarred->setChecked(false);
     displayRecipes(selectedRecipes);
+    ui->vrViewStarred->setHidden(true);
 }
 
 void MainWindow::on_fsCuisineEnter_textChanged(const QString &arg1)

@@ -36,17 +36,22 @@
      </rect>
     </property>
     <property name="currentIndex">
-     <number>2</number>
+     <number>0</number>
     </property>
     <widget class="QWidget" name="mainMenu">
      <widget class="QPushButton" name="viewIngredientsButton">
       <property name="geometry">
        <rect>
-        <x>130</x>
-        <y>190</y>
-        <width>131</width>
-        <height>31</height>
+        <x>300</x>
+        <y>300</y>
+        <width>200</width>
+        <height>45</height>
        </rect>
+      </property>
+      <property name="font">
+       <font>
+        <pointsize>12</pointsize>
+       </font>
       </property>
       <property name="text">
        <string>View All Ingredients</string>
@@ -55,11 +60,16 @@
      <widget class="QPushButton" name="addIngredientButton">
       <property name="geometry">
        <rect>
-        <x>130</x>
-        <y>240</y>
-        <width>131</width>
-        <height>31</height>
+        <x>300</x>
+        <y>390</y>
+        <width>200</width>
+        <height>45</height>
        </rect>
+      </property>
+      <property name="font">
+       <font>
+        <pointsize>12</pointsize>
+       </font>
       </property>
       <property name="text">
        <string>Add Ingredient</string>
@@ -68,11 +78,16 @@
      <widget class="QPushButton" name="addRecipeButton">
       <property name="geometry">
        <rect>
-        <x>130</x>
-        <y>140</y>
-        <width>131</width>
-        <height>31</height>
+        <x>300</x>
+        <y>210</y>
+        <width>200</width>
+        <height>45</height>
        </rect>
+      </property>
+      <property name="font">
+       <font>
+        <pointsize>12</pointsize>
+       </font>
       </property>
       <property name="text">
        <string>Add Recipe</string>
@@ -81,11 +96,16 @@
      <widget class="QPushButton" name="filterSearchButton">
       <property name="geometry">
        <rect>
-        <x>130</x>
-        <y>90</y>
-        <width>131</width>
-        <height>31</height>
+        <x>300</x>
+        <y>120</y>
+        <width>200</width>
+        <height>45</height>
        </rect>
+      </property>
+      <property name="font">
+       <font>
+        <pointsize>12</pointsize>
+       </font>
       </property>
       <property name="text">
        <string>Filtered Recipe Search</string>
@@ -94,11 +114,16 @@
      <widget class="QPushButton" name="exitButton">
       <property name="geometry">
        <rect>
-        <x>130</x>
-        <y>290</y>
-        <width>131</width>
-        <height>31</height>
+        <x>300</x>
+        <y>480</y>
+        <width>200</width>
+        <height>45</height>
        </rect>
+      </property>
+      <property name="font">
+       <font>
+        <pointsize>12</pointsize>
+       </font>
       </property>
       <property name="text">
        <string>Save and Exit</string>
@@ -107,11 +132,16 @@
      <widget class="QPushButton" name="viewRecipesButton">
       <property name="geometry">
        <rect>
-        <x>130</x>
-        <y>40</y>
-        <width>131</width>
-        <height>31</height>
+        <x>300</x>
+        <y>30</y>
+        <width>200</width>
+        <height>44</height>
        </rect>
+      </property>
+      <property name="font">
+       <font>
+        <pointsize>12</pointsize>
+       </font>
       </property>
       <property name="text">
        <string>View All Recipes</string>
