@@ -61,6 +61,12 @@ private slots:
 
     void on_fsSearch_clicked();
 
+    void on_fsCuisineEnter_textChanged(const QString &arg1);
+
+    void on_fsTimeEnter_currentIndexChanged(int index);
+
+    void on_fsCalorieSlider_valueChanged(int value);
+
 private:
     Ui::MainWindow *ui;
     QVector<Ingredient*> *allIngredients = new QVector<Ingredient*>;

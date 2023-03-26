@@ -233,7 +233,7 @@
       </property>
       <layout class="QHBoxLayout" name="fsCalorieLayout">
        <item>
-        <widget class="QLabel" name="label_2">
+        <widget class="QLabel" name="fsCalorieLabel">
          <property name="font">
           <font>
            <pointsize>12</pointsize>
@@ -246,6 +246,9 @@
        </item>
        <item>
         <widget class="QSlider" name="fsCalorieSlider">
+         <property name="maximum">
+          <number>3000</number>
+         </property>
          <property name="orientation">
           <enum>Qt::Horizontal</enum>
          </property>
@@ -257,14 +260,14 @@
       <property name="geometry">
        <rect>
         <x>30</x>
-        <y>220</y>
+        <y>210</y>
         <width>211</width>
         <height>51</height>
        </rect>
       </property>
-      <layout class="QHBoxLayout" name="horizontalLayout">
+      <layout class="QHBoxLayout" name="fsTimelayout">
        <item>
-        <widget class="QLabel" name="label">
+        <widget class="QLabel" name="fsTimeLabel">
          <property name="font">
           <font>
            <pointsize>12</pointsize>
@@ -276,7 +279,69 @@
         </widget>
        </item>
        <item>
-        <widget class="QComboBox" name="comboBox"/>
+        <widget class="QComboBox" name="fsTimeEnter">
+         <property name="currentIndex">
+          <number>0</number>
+         </property>
+         <property name="maxVisibleItems">
+          <number>12</number>
+         </property>
+         <item>
+          <property name="text">
+           <string>No Limit</string>
+          </property>
+         </item>
+         <item>
+          <property name="text">
+           <string>15 mins</string>
+          </property>
+         </item>
+         <item>
+          <property name="text">
+           <string>30 mins</string>
+          </property>
+         </item>
+         <item>
+          <property name="text">
+           <string>45 mins</string>
+          </property>
+         </item>
+         <item>
+          <property name="text">
+           <string>60 mins</string>
+          </property>
+         </item>
+         <item>
+          <property name="text">
+           <string>75 mins</string>
+          </property>
+         </item>
+         <item>
+          <property name="text">
+           <string>90 mins</string>
+          </property>
+         </item>
+         <item>
+          <property name="text">
+           <string>105 mins</string>
+          </property>
+         </item>
+         <item>
+          <property name="text">
+           <string>120 mins</string>
+          </property>
+         </item>
+         <item>
+          <property name="text">
+           <string>135 mins</string>
+          </property>
+         </item>
+         <item>
+          <property name="text">
+           <string>150 mins</string>
+          </property>
+         </item>
+        </widget>
        </item>
       </layout>
      </widget>
@@ -346,7 +411,7 @@
        </property>
       </widget>
      </widget>
-     <widget class="QLabel" name="label_4">
+     <widget class="QLabel" name="fsCalorieDisplay">
       <property name="geometry">
        <rect>
         <x>160</x>
@@ -357,12 +422,12 @@
       </property>
       <property name="font">
        <font>
-        <pointsize>11</pointsize>
+        <pointsize>10</pointsize>
         <italic>true</italic>
        </font>
       </property>
       <property name="text">
-       <string>Limit: </string>
+       <string>No Calorie Limit</string>
       </property>
       <property name="alignment">
        <set>Qt::AlignCenter</set>

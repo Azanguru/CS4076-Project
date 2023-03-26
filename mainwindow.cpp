@@ -15,6 +15,12 @@ using namespace std;
 
 bool popupReturn = false;
 
+struct {
+    QString cuisineName = "";
+    double calLimit = 0;
+    int timeLimit = 0;
+} fsStruct;
+
 MainWindow::MainWindow(QWidget *parent)
     : QMainWindow(parent)
     , ui(new Ui::MainWindow)
@@ -385,24 +391,46 @@ void MainWindow::on_vrViewStarred_stateChanged(int arg1)
     }
 }
 
-
 void MainWindow::on_filterSearchButton_clicked()
 {
+    ui->fsCalorieSlider->setValue(0);
+    ui->fsCuisineEnter->setText("");
+    ui->fsTimeEnter->setCurrentIndex(0);
     ui->pages->setCurrentIndex(2);
 }
-
 
 void MainWindow::on_fsBack_clicked()
 {
     ui->pages->setCurrentIndex(0);
 }
 
-
 void MainWindow::on_fsSearch_clicked()
 {
+    //if ((!ui->fsCuisineLabel->text().isNull()) && (ui->fsCalorieSlider->value() == 0) && (ui->fsTimeEnter->value()))
 
-    ui->pages->setCurrentIndex(1);
-    ui->vrViewStarred->setChecked(false);
+    //ui->pages->setCurrentIndex(1);
+    //ui->vrViewStarred->setChecked(false);
     //displayRecipes(selectedRecipes);
+}
+
+void MainWindow::on_fsCuisineEnter_textChanged(const QString &arg1)
+{
+    fsStruct.cuisineName = arg1;
+}
+
+void MainWindow::on_fsTimeEnter_currentIndexChanged(int index)
+{
+    fsStruct.timeLimit = index * 15;
+}
+
+void MainWindow::on_fsCalorieSlider_valueChanged(int value)
+{
+    fsStruct.calLimit = value;
+    if (value != 0)
+    {
+        ui->fsCalorieDisplay->setText("Calorie Limit: " + QString::number(value));
+    } else {
+        ui->fsCalorieDisplay->setText("No Calorie Limit");
+    }
 }
 
