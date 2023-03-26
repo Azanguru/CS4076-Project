@@ -11,9 +11,9 @@ Recipe::Recipe(QObject *parent)
 Recipe::Recipe(QString name, QVector<Ingredient*> ingredientList, QString instructions, double totalCalories, int time, QString cuisine,
                bool starred = false)
 {
-    this->name = name;
-    this->cuisine = cuisine;
-    this->instructions = instructions;
+    thisName = name;
+    thisCuisine = cuisine;
+    thisInstructions = instructions;
     this->ingredientList = ingredientList;
     this->time = time;
     this->totalCalories = totalCalories;

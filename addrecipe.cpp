@@ -5,6 +5,8 @@
 #include "ingredient.h"
 #include "popup.h"
 
+#define MAX_AMOUNT 9999
+
 namespace counter
 {
     static int count = 0;
@@ -82,7 +84,7 @@ void AddRecipe::on_arIngAddSlot_clicked()
     }
 
     combo->setSizePolicy(QSizePolicy::MinimumExpanding, QSizePolicy::Maximum);
-    spin->setMaximum(9999);
+    spin->setMaximum(MAX_AMOUNT);
     combo->setObjectName(QString::number(counter::count));
     spin->setObjectName(QString::number(counter::count));
     hbox->addWidget(combo);

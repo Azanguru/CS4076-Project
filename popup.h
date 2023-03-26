@@ -14,8 +14,8 @@ class Popup : public QDialog
 
 public:
     explicit Popup(QWidget *parent = nullptr);
-    Popup(QString button1Text, QString button2Text, QString message);
-    Popup(QString buttonText, QString message);
+    Popup(const QString &button1Text, const QString &button2Text, const QString &message);
+    Popup(const QString &buttonText, const QString &message);
     ~Popup();
 
 private slots:

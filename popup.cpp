@@ -2,6 +2,9 @@
 #include "ui_popup.h"
 #include "mainwindow.h"
 
+#define BUTTON_1_PRESSED false
+#define BUTTON_2_PRESSED true
+
 Popup::Popup(QWidget *parent) :
     QDialog(parent),
     ui(new Ui::Popup)
@@ -9,7 +12,7 @@ Popup::Popup(QWidget *parent) :
     ui->setupUi(this);
 }
 
-Popup::Popup(QString button1Text,  QString button2Text, QString message) :
+Popup::Popup(const QString &button1Text, const QString &button2Text, const QString &message) :
     ui(new Ui::Popup)
 {
     ui->setupUi(this);
@@ -18,7 +21,7 @@ Popup::Popup(QString button1Text,  QString button2Text, QString message) :
     ui->popupText->setText(message);
 }
 
-Popup::Popup(QString buttonText, QString message) :
+Popup::Popup(const QString &buttonText, const QString &message) :
     ui(new Ui::Popup)
 {
     ui->setupUi(this);
@@ -34,12 +37,12 @@ Popup::~Popup()
 
 void Popup::on_button1_clicked()
 {
-    popupReturn = false;
+    popupReturn = BUTTON_1_PRESSED;
     this->close();
 }
 
 void Popup::on_button2_clicked()
 {
-    popupReturn = true;
+    popupReturn = BUTTON_2_PRESSED;
     this->close();
 }

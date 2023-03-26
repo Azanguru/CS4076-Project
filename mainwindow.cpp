@@ -76,14 +76,14 @@ void MainWindow::csvRead()
     file2.close();
 }
 
-void MainWindow::processIngredient(QString line)
+void MainWindow::processIngredient(QString &line)
 {
     QStringList list = line.split(",");
     Ingredient *in = new Ingredient(list.at(0), 100*(list.at(1).toDouble()), 0, list.at(3).toInt());
     allIngredients->append(in);
 }
 
-void MainWindow::processRecipe(QString line)
+void MainWindow::processRecipe(QString &line)
 {
     QStringList list = line.split(",");
     QVector<Ingredient*> ingredients;

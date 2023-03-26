@@ -55,8 +55,8 @@ private:
 
     void csvWrite();
     void csvRead();
-    void processIngredient(QString line);
-    void processRecipe(QString line);
+    void processIngredient(QString &line);
+    void processRecipe(QString &line);
     void viewIngredientsButtonPressed(int row, bool val);
     void viewRecipesButtonPressed(int row, int val, QVector<Recipe*> *recipes);
     void displayRecipes(QVector<Recipe*> *recipes);

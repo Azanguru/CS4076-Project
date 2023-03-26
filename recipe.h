@@ -17,6 +17,10 @@ private:
     int time;
     bool starred;
 
+    QString &thisName = name;
+    QString &thisCuisine = cuisine;
+    QString &thisInstructions = instructions;
+
     double calorieCalc();
 
 public:
