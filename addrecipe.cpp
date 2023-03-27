@@ -149,7 +149,7 @@ void AddRecipe::on_arConfirmAdd_clicked()
             }
         }
 
-        if (!cuisine.isNull() && !found)
+        if (!cuisine.isNull() && !found && !editing)
         {
             Recipe *r = new Recipe(name, ingredientList, instructions, time, cuisine, starred);
             allRecipes->append(r);
@@ -160,7 +160,7 @@ void AddRecipe::on_arConfirmAdd_clicked()
             delete success;
 
             this->close();
-        } else if (!found) {
+        } else if (!found && !editing) {
             Popup *success = new Popup("Cancel", "Confirm", "No cuisine has been specified, are you sure you want to add this recipe?");
             success->setModal(true);
             success->exec();
@@ -173,7 +173,7 @@ void AddRecipe::on_arConfirmAdd_clicked()
 
                 this->close();
             }
-        } else if (found && editing) {
+        } else if (editing) {
             Recipe *r = new Recipe(name, ingredientList, instructions, time, cuisine, starred);
             allRecipes->replace(pos, r);
 
