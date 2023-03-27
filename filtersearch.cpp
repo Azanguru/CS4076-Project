@@ -55,7 +55,7 @@ QVector<Recipe*> * CombinedSearch::search()
             }
 
         } else {
-            if ((recipes->at(i)->getCuisine() == cuisineName) && (timeLimit >= recipes->at(i)->getTime())
+            if ((recipes->at(i)->getCuisine().toUpper() == cuisineName.toUpper()) && (timeLimit >= recipes->at(i)->getTime())
                     && (calLimit >= recipes->at(i)->getTotalCalories()))
             {
                 result->append(recipes->at(i));
