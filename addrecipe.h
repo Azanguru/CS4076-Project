@@ -4,12 +4,13 @@
 #include <QDialog>
 #include <QComboBox>
 #include "recipe.h"
+#include "customexception.h"
 
 namespace Ui {
 class AddRecipe;
 }
 
-class AddRecipe : public QDialog
+class AddRecipe : public QDialog, CustomException
 {
     Q_OBJECT
 

@@ -6,14 +6,14 @@
 #include <QLineEdit>
 #include <QDoubleSpinBox>
 #include <QRadioButton>
-
 #include "ingredient.h"
+#include "customexception.h"
 
 namespace Ui {
 class AddIngredient;
 }
 
-class AddIngredient : public QDialog
+class AddIngredient : public QDialog, public CustomException
 {
     Q_OBJECT
 
