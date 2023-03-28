@@ -10,7 +10,7 @@ namespace Ui {
 class AddRecipe;
 }
 
-class AddRecipe : public QDialog, CustomException
+class AddRecipe : public QDialog, public CustomException
 {
     Q_OBJECT
 

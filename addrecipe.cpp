@@ -126,67 +126,66 @@ void AddRecipe::on_arTimeEnter_valueChanged(int arg1)
 
 void AddRecipe::on_arConfirmAdd_clicked()
 {
-    instructions = ui->arInstrEnter->toPlainText();
-    instructions.replace("\n", "//nl");
-    instructions.replace(",", "£");
+    try {
+        instructions = ui->arInstrEnter->toPlainText();
+        instructions.replace("\n", "//nl");
+        instructions.replace(",", "£");
 
-    if ((!name.isNull()) && (ingredientList.size() != 0) && (!instructions.isNull()) && (time != 0))
-    {
-        bool found = false;
-        int size = allRecipes->size();
-        for (int i = 0; i < size; i++)
+        if ((!name.isNull()) && (ingredientList.size() != 0) && (!instructions.isNull()) && (time != 0))
         {
-            if ((!editing) && (name.toUpper() == (*allRecipes)[i]->getName().toUpper())) {
-                found = true;
-
-                Popup *exists = new Popup("Ok", "Recipe already exists with that name");
-                exists->setModal(true);
-                exists->exec();
-                delete exists;
-
-                break;
-            }
-        }
-
-        if (!cuisine.isNull() && !found && !editing)
-        {
-            Recipe *r = new Recipe(name, ingredientList, instructions, time, cuisine, starred);
-            allRecipes->append(r);
-
-            Popup *success = new Popup("Ok", "Recipe added successfully!");
-            success->setModal(true);
-            success->exec();
-            delete success;
-
-            this->close();
-        } else if (!found && !editing) {
-            Popup *success = new Popup("Cancel", "Confirm", "No cuisine has been specified, are you sure you want to add this recipe?");
-            success->setModal(true);
-            success->exec();
-            delete success;
-
-            if (popupReturn)
+            int size = allRecipes->size();
+            for (int i = 0; i < size; i++)
             {
-                Recipe *r = new Recipe(name, ingredientList, instructions, time, starred);
+                if ((!editing) && (name.toUpper() == (*allRecipes)[i]->getName().toUpper())) {
+                    this->raiseException();
+                }
+            }
+
+            if (!cuisine.isNull() && !editing)
+            {
+                Recipe *r = new Recipe(name, ingredientList, instructions, time, cuisine, starred);
                 allRecipes->append(r);
+
+                Popup *success = new Popup("Ok", "Recipe added successfully!");
+                success->setModal(true);
+                success->exec();
+                delete success;
+
+                this->close();
+            } else if (!editing) {
+                Popup *success = new Popup("Cancel", "Confirm", "No cuisine has been specified, are you sure you want to add this recipe?");
+                success->setModal(true);
+                success->exec();
+                delete success;
+
+                if (popupReturn)
+                {
+                    Recipe *r = new Recipe(name, ingredientList, instructions, time, starred);
+                    allRecipes->append(r);
+
+                    this->close();
+                }
+            } else if (editing) {
+                Recipe *r = new Recipe(name, ingredientList, instructions, time, cuisine, starred);
+                allRecipes->replace(pos, r);
+
+                Popup *success = new Popup("Ok", "Recipe edited successfully!");
+                success->setModal(true);
+                success->exec();
+                delete success;
 
                 this->close();
             }
-        } else if (editing) {
-            Recipe *r = new Recipe(name, ingredientList, instructions, time, cuisine, starred);
-            allRecipes->replace(pos, r);
-
-            Popup *success = new Popup("Ok", "Recipe edited successfully!");
-            success->setModal(true);
-            success->exec();
-            delete success;
-
-            this->close();
+        } else {
+            Popup *incomplete = new Popup("Ok", "Please ensure all fields are filled out correctly.");
+            incomplete->setModal(true);
+            incomplete->exec();
+            delete incomplete;
         }
-    } else {
-        Popup *incomplete = new Popup("Ok", "Please ensure all fields are filled out correctly.");
-        incomplete->setModal(true);
-        incomplete->exec();
-        delete incomplete;
+    } catch (CustomException ex) {
+        Popup *exists = new Popup("Ok", "Recipe already exists with that name");
+        exists->setModal(true);
+        exists->exec();
+        delete exists;
     }
 }
