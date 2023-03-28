@@ -378,7 +378,6 @@ void MainWindow::deleteWidgetsFromLayout(QLayout *layout)
 void MainWindow::on_vrViewStarred_stateChanged(int arg1)
 {
     deleteWidgetsFromLayout(ui->recGrid);
-
     if (ui->vrViewStarred->isChecked())
     {
         QVector<Recipe*> *starredRecipes = new QVector<Recipe*>();

@@ -44,7 +44,6 @@ AddRecipe::AddRecipe(QVector<Recipe*> *allRecipes, QVector<Ingredient*> *allIngr
     ui->arCuisineEnter->setText(editRec->getCuisine());
     ui->arTimeEnter->setValue(editRec->getTime());
     if (editRec->getStarred()) { this->on_arFavourite_clicked(); }
-    int size = editRec->getIngredientList().size();
     QString inst = editRec->getInstructions().replace("//nl", "\n");
     inst.replace("£", ",");
     ui->arInstrEnter->setPlainText(inst);

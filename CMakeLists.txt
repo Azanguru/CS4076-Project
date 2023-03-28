@@ -32,6 +32,8 @@ set(PROJECT_SOURCES
         addrecipe.cpp
         filtersearch.h
         filtersearch.cpp
+        customexception.h
+        customexception.cpp
 )
 
 if(${QT_VERSION_MAJOR} GREATER_EQUAL 6)
