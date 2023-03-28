@@ -18,9 +18,18 @@ bool popupReturn = false;
 
 struct {
     QString cuisineName = "";
-    double calLimit = 0;
-    int timeLimit = 0;
+    unsigned int calLimit : 13;
+    unsigned int timeLimit : 8;
 } fsStruct;
+
+int option = 0;
+
+union {
+    int a;
+    float b;
+    char c;
+    bool d;
+} myUnion;
 
 MainWindow::MainWindow(QWidget *parent)
     : QMainWindow(parent)
@@ -445,7 +454,7 @@ void MainWindow::on_fsTimeEnter_currentIndexChanged(int index)
 
 void MainWindow::on_fsCalorieSlider_valueChanged(int value)
 {
-    fsStruct.calLimit = (double)value;
+    fsStruct.calLimit = value;
     if (value != 0)
     {
         ui->fsCalorieDisplay->setText("Calorie Limit: " + QString::number(value));
@@ -453,3 +462,30 @@ void MainWindow::on_fsCalorieSlider_valueChanged(int value)
         ui->fsCalorieDisplay->setText("No Calorie Limit");
     }
 }
+
+void MainWindow::on_unionBack_clicked()
+{
+    ui->pages->setCurrentIndex(0);
+}
+
+void MainWindow::on_pushButton_clicked()
+{
+    ui->pages->setCurrentIndex(5);
+    srand((unsigned) time(NULL));
+    myUnion.a = rand() % 100;
+    ui->unionLabel->setText(QString::number(myUnion.a));
+}
+
+void MainWindow::on_changeUnionType_clicked()
+{
+    option++;
+    if (option > 3) { option = 0; }
+
+    switch (option) {
+    case 0 : ui->unionLabel->setText(QString::number(myUnion.a)); break;
+    case 1 : ui->unionLabel->setText(QString::number(myUnion.b)); break;
+    case 2 : ui->unionLabel->setText(QString(myUnion.c)); break;
+    case 3 : QString str; myUnion.d ? str = "true" : str = "false"; ui->unionLabel->setText(str); break;
+    }
+}
+

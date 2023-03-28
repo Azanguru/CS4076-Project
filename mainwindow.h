@@ -61,6 +61,12 @@ private slots:
 
     void on_fsCalorieSlider_valueChanged(int value);
 
+    void on_unionBack_clicked();
+
+    void on_pushButton_clicked();
+
+    void on_changeUnionType_clicked();
+
 private:
     Ui::MainWindow *ui;
     QVector<Ingredient*> *allIngredients = new QVector<Ingredient*>;
